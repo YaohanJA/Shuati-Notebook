@@ -1,9 +1,14 @@
 title1: "Python OOP"
 date: 2020-04-11
 
-### I Python OOP
----
+
+
+## Python OOP
+### Defining Classes
+[Problem Solving with Algorithms and Data Structures using Python](https://runestone.academy/runestone/books/published/pythonds/Introduction/ObjectOrientedProgramminginPythonDefiningClasses.html#object-oriented-programming-in-python-defining-classes)
+
 #### 1,`__init__(self)`
+
 ```python
 class Fraction:
 		
@@ -63,18 +68,34 @@ def __add__(self, otherfraction):
 
 - The best-known algorithm for finding a greatest common divisor [GCD] is **Euclid’s Algorithm** 
 
-##### 欧几里德算法（求最大公约数）
+##### 欧几里德算法
 
-```python
-def gcd(a, b):
-    while b != 0:
-        a , b = b, a % b
-    return a 
-```
+- 求最大公约数
+  ```python
+  def gcd(a, b):
+      while b != 0:
+          a , b = b, a % b
+      return a 
+  ```
+- new `__add__` 
+ ```python
+  def __add__(self,otherfraction):
+    newnum = self.num*otherfraction.den + self.den*otherfraction.num
+    newden = self.den * otherfraction.den
+    common = gcd(newnum,newden)
+    return Fraction(newnum//common,newden//common)
+  
+ >>> f1=Fraction(1,4)
+>>> f2=Fraction(1,2)
+>>> f3=f1+f2
+>>> print(f3)
+3/4
+ ```
 
+#### 3,`__eq__`  
+- The `__eq__` method compares two objects and returns True if their values are the same, False otherwise.
 
-
-
+## **shallow equality** !!!!
 
 
 
