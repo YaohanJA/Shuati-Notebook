@@ -107,33 +107,19 @@ ML is the subfield of AI, prevalence of large data sets and massive computationa
 
 ![ml_map](awsml_pic/ml_map.png)
 
-#### i,define problem
+| i,define problem                                             | ii, input gathering                                          | iii, output                                                  |
+| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| <img src="awsml_pic/define_probelm.png" alt="define_probelm" style="zoom:50%;" /> | <img src="awsml_pic/input.png" alt="input" style="zoom:50%;" /> | <img src="awsml_pic/output.png" alt="output" style="zoom:50%;" /> |
 
-<img src="awsml_pic/define_probelm.png" alt="define_probelm" style="zoom:50%;" />
-
-#### ii, input gathering
-
-<img src="awsml_pic/input.png" alt="input" style="zoom:50%;" />
-
-#### iii, output
-
-<img src="awsml_pic/output.png" alt="output" style="zoom:50%;" />
 
 ### 5, ML Process
 
 ![MLprocess](awsml_pic/MLprocess.png)
 
-#### Feature Engineering domain specific 
+| Feature Engineering domain specific | <img src="awsml_pic/domain_specific.png" alt="domain_specific" style="zoom:50%;" /> |
+| ----------------------------------- | ------------------------------------------------------------ |
+| **Parameter Tuning**                | - loss function [和ground truth的差别]<br/>- regularisation [increase the generalization to better fit the data]<br/>- learning parameters (decay rate 控制model学习的快慢)<img src="awsml_pic/parameter_tunning.png" alt="parameter_tunning" style="zoom:50%;" /> |
 
-<img src="awsml_pic/domain_specific.png" alt="domain_specific" style="zoom:50%;" />
-
-#### Parameter Tuning
-
-- loss function [和ground truth的差别]
-- regularisation [increase the generalization to better fit the data]
-- learning parameters (decay rate 控制model学习的快慢)
-
-<img src="awsml_pic/parameter_tunning.png" alt="parameter_tunning" style="zoom:50%;" />
 
 ### Evaluation 
 
@@ -180,7 +166,7 @@ Variance
 
 #### Model quality
 
-overfitting and underfitting
+**overfitting and underfitting**
 
 ![overandunder](awsml_pic/overandunder.png)
 
