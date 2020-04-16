@@ -23,7 +23,7 @@
 
 
 ## Part I: Data engineering - 20%
-###1，Create data repositories for ML
+### 1，Create data repositories for ML
 
 数据形式[structured, unstruced] -> a centralized repository -> Data Lake
 
@@ -32,19 +32,16 @@ AWS Lake Formation
 Amason S3 storage option for ds processing on AWS
 
 
-
-
-
-###2，Identify and implement a data-ingestion solution
-###3，Identify and implement a data-transformation solution
+### 2，Identify and implement a data-ingestion solution
+### 3，Identify and implement a data-transformation solution
 
   
 
-##Part II: Exploratory data analysis - 24%
+## Part II: Exploratory data analysis - 24%
 
-##Part III: Modellling - 36%
+## Part III: Modellling - 36%
 
-##Part IV: ML implementation & operation  20%
+## Part IV: ML implementation & operation  20%
 
 
 
@@ -217,13 +214,13 @@ Multicollinearity
 
 ### Logistic regression
 
-<img src="/Users/yaohanjiang/Desktop/Shuati-Notebook/AWS_ML/awsml_pic/logistic.png" alt="logistic" style="zoom:67%;" />
+<img src="awsml_pic/logistic.png" alt="logistic" style="zoom:67%;" />
 
 #### sigmoid curve
 
 is a good representation of probability which is widely used in logistic regression to fit a model. x [-inf, inf]
 
-<img src="/Users/yaohanjiang/Desktop/Shuati-Notebook/AWS_ML/awsml_pic/sigmoid.png" alt="sigmoid" style="zoom:50%;" />
+<img src="awsml_pic/sigmoid.png" alt="sigmoid" style="zoom:50%;" />
 
 #### how to fit logistic regression model
 
