@@ -39,6 +39,20 @@ Amason S3 storage option for ds processing on AWS
 
 ## Part II: Exploratory data analysis - 24%
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## Part III: Modellling - 36%
 
 ## Part IV: ML implementation & operation  20%
@@ -111,8 +125,7 @@ ML is the subfield of AI, prevalence of large data sets and massive computationa
 | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | <img src="awsml_pic/define_probelm.png" alt="define_probelm" style="zoom:50%;" /> | <img src="awsml_pic/input.png" alt="input" style="zoom:50%;" /> | <img src="awsml_pic/output.png" alt="output" style="zoom:50%;" /> |
 
-
-### 5, ML Process
+##  ML Process
 
 ![MLprocess](awsml_pic/MLprocess.png)
 
@@ -121,28 +134,26 @@ ML is the subfield of AI, prevalence of large data sets and massive computationa
 | **Parameter Tuning**                | - loss function [和ground truth的差别]<br/>- regularisation [increase the generalization to better fit the data]<br/>- learning parameters (decay rate 控制model学习的快慢)<img src="awsml_pic/parameter_tunning.png" alt="parameter_tunning" style="zoom:50%;" /> |
 
 
-### Evaluation 
+## Evaluation 
 
-##### 1, Overfitting vs underfitting（generalize more toward unseen data）
+#### 1, Overfitting vs underfitting（generalize more toward unseen data）
 
 - use validation error 
 
 - using training error -> overfitting, lack of feature/information -> undercutting
 
-##### 2, Bias-variance tradeoff [supervised]
+#### 2, Bias-variance tradeoff [supervised]
 
 <img src="awsml_pic/bias-variance_tradeoff.png" alt="bias-variance_tradeoff" style="zoom:50%;" />
 
-##### 3, evaluation matrix
+#### 3, evaluation matrix
 
 | 模型       | evaluation                                      |                      |
 | ---------- | ----------------------------------------------- | -------------------- |
 | Regression | <img src="awsml_pic/regression_eva.png"  /> | -RMSE，MAPE 越大越好<br> -R^2 越大越好 |
 | Classification | - confusion matrix<img src="awsml_pic/confusion_matrix.png" alt="confusion_matrix" style="zoom:50%;" /> <br/> -precision recall <img src="awsml_pic/presion_recall.png" alt="presion_recall" style="zoom:50%;" /> | - precision: how correct we are on ones we predictect would be positive <br/> - recall: fraction of negatives that we wrongly predicted<br>i.e. search engine; precision, quality and how relevant it is; completeness and fraction of relevance |
-| Binary classification 例子 | - type I: alpha ~ 5%<br/>- type II: beta 1- power<br/>- power ~ 80% [依情况订]<br/><img src="awsml_pic/type12error.png" alt="type12error" style="zoom:50%;" /><img src="awsml_pic/binary.png" alt="binary"  /> <br> - specificity = TN/TN + FP <br> - FPR = 1- specificity = FP/ TN + FP<br>  | - precision：在我们判断是disease中有多少人是真的病了<br>- recall: 在有disease的样本量中，有多少我们可以正确的判断出来。<br>- accuracy: 正确判断的[overall]。<br> |
+| Binary classification 例子 | - type I: alpha ~ 5%<br/>- type II: beta 1- power<br/>- power ~ 80% [依情况订]<br/><img src="awsml_pic/type12error.png" alt="type12error" style="zoom:50%;" /><img src="awsml_pic/binary.png" alt="binary"  /> <br> - specificity = TN/TN + FP <br> - FPR = 1- specificity = FP/ TN + FP<br> \ | - precision：在我们判断是disease中有多少人是真的病了<br>- recall: 在有disease的样本量中，有多少我们可以正确的判断出来。<br>- accuracy: 正确判断的[overall]。<br> |
 | ROC <br>AUC | <img src="awsml_pic/roc.png" alt="a" style="zoom:30%;" /><img src="awsml_pic/a.png" alt="a" style="zoom:30%;" /> | ROC: <br/>1, 选择不同的threshold，TPR 和 FPR 对应关系。<br/>2, FPR越小，TPR越大。全局最优解，能接受的FPR左边能接受的点。<br/> AUC: auc 面积越大，模型越好 |
-
- 
 
 ### Key issues in ML
 
@@ -186,29 +197,45 @@ use sagemaker and EC2
 
 ### Linear methods:
 
-![linear](awsml_pic/linear.png)
-
-#### Linear regression (univariate)
-
-<img src="awsml_pic/lr.png" alt="lr" style="zoom:85%;" />
-
-#### Multivariate LR
-
-Multicollinearity
-
-<img src="awsml_pic/mlr.png" alt="mlr" style="zoom:55%;" />
+| Linear                                   | ![linear](awsml_pic/linear.png)                             |
+| ---------------------------------------- | ----------------------------------------------------------- |
+| **Linear regression (univariate)**       | <img src="awsml_pic/lr.png" alt="lr" style="zoom:85%;" />   |
+| **Multivariate LR**<br>Multicollinearity | <img src="awsml_pic/mlr.png" alt="mlr" style="zoom:55%;" /> |
 
 ### Logistic regression
 
-<img src="awsml_pic/logistic.png" alt="logistic" style="zoom:67%;" />
+|                               | <img src="awsml_pic/logistic.png" alt="logistic" style="zoom:67%;" /> |
+| ----------------------------- | ------------------------------------------------------------ |
+| sigmoid curve                 | is a good representation of probability which is widely used in logistic regression to fit a model. x [-inf, inf] --> y [0 or 1] <br><img src="awsml_pic/sigmoid.png" alt="sigmoid" style="zoom:50%;" /> |
+| Logit function                | ![lgr](awsml_pic/lgr.png) <br>The **logit** function is the inverse of the logistic function. <br/>![l](awsml_pic/l.png) |
+| fit logistic regression model | <img src="awsml_pic/fitsigmoid.png" alt="fitsigmoid" style="zoom:60%;" /><img src="awsml_pic/logit.png" alt="logit" style="zoom:67%;" /> |
 
-#### sigmoid curve
 
-is a good representation of probability which is widely used in logistic regression to fit a model. x [-inf, inf]
 
-<img src="awsml_pic/sigmoid.png" alt="sigmoid" style="zoom:50%;" />
 
-#### how to fit logistic regression model
 
-<img src="awsml_pic/fitsigmoid.png" alt="fitsigmoid" style="zoom:60%;" />
+problem formulation
+
+### data collection 
+
+#### sampling 
+
+[representivity of expected production population: unbiased]
+
+- Random sampling
+  - 问题1: rare subpopulation can be underrepresented
+  - 解决1：**Stratified sampling**
+    - random sampling to each subpopulation.
+      - if sampling probability is not the same for each stratum, weights can be used in metrics. 
+  - 问题2：
+    - sensonality
+      - 解决：分层抽样可以减少bias | 可视化
+    - trends
+      - 解决：比较不同时间段的模型结果 | 可视化
+  - 问题3：
+    - leakage
+      - Train/test bleed: training test data 重复
+      - 在train中用了但是production不用
+
+#### labeling
 
