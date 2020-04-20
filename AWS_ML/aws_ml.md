@@ -1,3 +1,9 @@
+[TOC]
+
+
+
+
+
 # Exam Logistics
 
 - 170 min
@@ -19,6 +25,8 @@
 
 - 实在不会，先跳过。
 
+[exam preparation path](https://aws.amazon.com/training/learning-paths/machine-learning/exam-preparation/)
+
   
 
 
@@ -26,6 +34,8 @@
 ### 1，Create data repositories for ML
 
 数据形式[structured, unstruced] -> a centralized repository -> Data Lake
+
+<img src="awsml_pic/data_source.png" alt="data_source" style="zoom:50%;" />
 
 AWS Lake Formation 
 
@@ -193,6 +203,8 @@ use sagemaker and EC2
 
 
 
+# The elements of ML
+
 ## Supervised learning:
 
 ### Linear methods:
@@ -216,9 +228,9 @@ use sagemaker and EC2
 
 problem formulation
 
-### data collection 
+## data collection - EDA 
 
-#### sampling 
+### sampling 
 
 [representivity of expected production population: unbiased]
 
@@ -237,5 +249,117 @@ problem formulation
       - Train/test bleed: training test data 重复
       - 在train中用了但是production不用
 
-#### labeling
+### labeling
+
+**Amazon Mechanical Turk** (human intelligence tasks, 人工标记问卷调查)
+
+- plurality (assign same HIT to multiple labellers)
+- gold standard hits (known labels mixed 测试标记表现)
+- auditors
+
+![causal_corr](awsml_pic/causal_corr.png)
+
+### Data Schema
+
+pandas merge/join
+
+### Data Statistics
+
+### 🌟descriptive statistics
+
+![descrip](awsml_pic/descrip.png)
+
+```python
+pd.describe()
+pd.hist()
+sns.distplot()  #有histogram + ked （smoothing拟合内核密度估计）
+df['x'].value_counts()
+```
+##### basic plots
+
+![plot1](awsml_pic/plot1.png)
+
+##### sns.distplot()
+
+核密度估计Kernel Density Estimation(KDE)是在概率论中用来估计未知的密度函数，属于非参数检验方法之一。
+
+直方图：密度函数是不平滑的；密度函数受子区间（即每个直方体）宽度影响很大，同样的原始数据如果取不同的子区间范围，那么展示的结果可能是完全不同的。
+
+[核密度估计kde](https://www.jianshu.com/p/428ae3658f85)
+
+![kde](awsml_pic/kde.png)
+
+#### 🌟correlation
+
+##### scatter | scatter_matrix
+
+scatterplot matrix (linear relationship) - visualize attribute-target and attribute-attribute pairwise relationships.
+
+
+
+| Scatter <br>Scatter_matrix      | ![scatter](awsml_pic/scatter.png) |
+| ------------------------------- | --------------------------------- |
+| **scatter for binary classes**  | ![scatter](awsml_pic/scatter1.png) |
+| **Correlation matrix heat map** |  ![scatter](awsml_pic/heatmap.png) <br>![scatter](awsml_pic/heatmap_sns.png)|
+| **Pearson correlation** | ![scatter](awsml_pic/pearson.png) |
+
+
+
+### Data issues
+
+| X        | ![scatter](awsml_pic/di.png)  |
+| -------- | ----------------------------- |
+| **x->y** | ![scatter](awsml_pic/di2.png) |
+
+
+
+## Data Processing and Feature Engineering
+
+
+
+### **Data Preprocessing:  Encoding Categorical Variables**
+
+### **Data Preprocessing: Encoding Nominals**
+
+### **Data Preprocessing: Handling Missing Values**
+
+### **Feature Engineering**
+
+### **Feature Engineering: Filtering and Scaling**
+
+### **Feature Engineering: Transformation**
+
+### **Feature Engineering: Text-Based Features**
+
+
+
+
+
+## Model Training, Tuning, and Debugging
+
+### **Supervised Learning: Neural Networks**
+
+### **Supervised Learning: K-Nearest Neighbors**
+
+### **Supervised Learning: Linear and Non-Linear Support Vector Machines**
+
+### **Supervised Learning: Decision Trees and Random Forests**
+
+### Model Training: Validation Set
+
+### **Model Training: Bias Variance Tradeoff**
+
+### **Model Debugging: Error Analysis**
+
+### **Model Tuning: Regularization**
+
+### **Model Tuning: Hyperparameter Tuning**
+
+### **Model Tuning**
+
+### **Model Tuning: Feature Extraction**
+
+### **Model Tuning: Feature Selection**
+
+### **Model Tuning: Bagging/Boosting**
 
