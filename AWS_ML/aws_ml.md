@@ -1,5 +1,13 @@
 [TOC]
 
+> Solve the toc problem:
+>
+> option save with naive
+>
+> pandoc xx.native -t markdown_phpextra -o yy.md
+
+
+
 # Exam Logistics
 
 - 170 min
@@ -131,7 +139,7 @@ ML is the subfield of AI, prevalence of large data sets and massive computationa
 | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | <img src="awsml_pic/define_probelm.png" alt="define_probelm" style="zoom:50%;" /> | <img src="awsml_pic/input.png" alt="input" style="zoom:50%;" /> | <img src="awsml_pic/output.png" alt="output" style="zoom:50%;" /> |
 
-##  ML Process
+##  🌟ML Process
 
 ![MLprocess](awsml_pic/MLprocess.png)
 
