@@ -299,21 +299,52 @@ scatterplot matrix (linear relationship) - visualize attribute-target and attrib
 
 ## Data Processing and Feature Engineering 
 
+### **DP:  Encoding Categorical Variables**
+
+> pandas, dtype = "category"
+
+```python
+df['zipcode'] = df.zipcode.astype('category')
+df['zipcode'] = pd.Categorical(df.zipcode)
+```
+
+Ordinal: ordered, use map function
+
+```python
+mapping = dict({'N':0,'S':5,'M':10,'L':20})
+df['num_garden_size'] = df['garden_size'].map(mapping)
+# inplace = True
+```
+
+ Binary：[‼ 2个以上的categories可能会出错]
+
+```python
+from sklearn.preprocessing import LabelEncoder
+la_enc = LabelEncoder()
+y = la_enc.fit_transform(df['yes/no'])
+```
+
+### **DP: Encoding Nominals**
+
+Nominal: unordered - One-hot encoding
+
+encoding nominals with integers is wrong, becasue the ordering and size of the integers are meaningless. 
+
+```python
+from sklearn.preprocessing import OneHotEncoder
 
 
-### **Data Preprocessing:  Encoding Categorical Variables**
+```
 
-### **Data Preprocessing: Encoding Nominals**
 
-### **Data Preprocessing: Handling Missing Values**
 
-### **Feature Engineering**
+### DP: Handling Missing Values
 
-### **Feature Engineering: Filtering and Scaling**
+### FE: Filtering and Scaling
 
-### **Feature Engineering: Transformation**
+### FE: Transformation
 
-### **Feature Engineering: Text-Based Features**
+### FE: Text-Based Features
 
 
 
@@ -683,24 +714,12 @@ KNN在搜索阶段的时间复杂度是多少？
   - 2， 可以使用近似KNN算法。算法仍然是KNN，但是在搜索的过程会做一些近似运算来提升效率，但同时也会牺牲一些准确率。https://www.cs.umd.edu/~mount/ANN/
   - 3，使用KD树来加速搜索速度
     - KD树看作是一种数据结构，而且这种数据结构把样本按照区域重新做了组织，这样的好处是一个区域里的样本互相离得比较近。
-    -   <img src= /Users/yaohanjiang/Desktop/daily/ML模型/kdtree1.png  style="zoom:40%" />
+    -   <img src= knn/kdtree1.png  style="zoom:40%" />
     - KD树之后，我们就可以用它来辅助KNN的搜索了
       -   为了保证能够找到全局最近的点，我们需要适当去检索其他区域里的点，这个过程也叫作Backtracking。
-    - <img src= /Users/yaohanjiang/Desktop/daily/ML模型/kdtree.png  style="zoom:20%" />
+    - <img src= knn/kdtree.png  style="zoom:20%" />
        - 最坏情况：backtracking 了所有的节点
-         - <img src= /Users/yaohanjiang/Desktop/daily/ML模型/kdtree2.png  style="zoom:40%" />
-
-
-
-#### 四：带权重的knn
-
-
-
-
-
-
-
-
+         - <img src= knn/kdtree2.png  style="zoom:40%" />
 
 
 
@@ -726,10 +745,7 @@ KNN在搜索阶段的时间复杂度是多少？
 
 ### **Model Tuning: Bagging/Boosting**
 
-
-
-
-
 # Math
 
 ![math](awsml_pic/math.png)
+
