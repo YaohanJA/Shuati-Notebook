@@ -279,15 +279,11 @@ df['x'].value_counts()
 
 scatterplot matrix (linear relationship) - visualize attribute-target and attribute-attribute pairwise relationships.
 
-
-
 | Scatter <br>Scatter_matrix      | ![scatter](awsml_pic/scatter.png) |
 | ------------------------------- | --------------------------------- |
 | **scatter for binary classes**  | ![scatter](awsml_pic/scatter1.png) |
 | **Correlation matrix heat map** |  ![scatter](awsml_pic/heatmap.png) <br>![scatter](awsml_pic/heatmap_sns.png)|
 | **Pearson correlation** | ![scatter](awsml_pic/pearson.png) |
-
-
 
 ### Data issues
 
@@ -299,7 +295,9 @@ scatterplot matrix (linear relationship) - visualize attribute-target and attrib
 
 ## Data Processing and Feature Engineering 
 
-### **DP:  Encoding Categorical Variables**
+### **DP 1:  Encoding Categorical Variables**
+
+##### Categorical
 
 > pandas, dtype = "category"
 
@@ -307,6 +305,8 @@ scatterplot matrix (linear relationship) - visualize attribute-target and attrib
 df['zipcode'] = df.zipcode.astype('category')
 df['zipcode'] = pd.Categorical(df.zipcode)
 ```
+
+##### Ordinal - Map
 
 Ordinal: ordered, use map function
 
@@ -316,7 +316,9 @@ df['num_garden_size'] = df['garden_size'].map(mapping)
 # inplace = True
 ```
 
- Binary：[‼ 2个以上的categories可能会出错]
+##### Binary - LabelEncoder
+
+[‼ 2个以上的categories可能会出错]
 
 ```python
 from sklearn.preprocessing import LabelEncoder
@@ -324,27 +326,220 @@ la_enc = LabelEncoder()
 y = la_enc.fit_transform(df['yes/no'])
 ```
 
-### **DP: Encoding Nominals**
+### **DP 2: Encoding Nominals**
 
 Nominal: unordered - One-hot encoding
 
 encoding nominals with integers is wrong, becasue the ordering and size of the integers are meaningless. 
 
+##### OneHotEncoder 
+
+##### get_dummies
+
 ```python
+# method 1: one-hot encoding
+import pandas as pd
 from sklearn.preprocessing import OneHotEncoder
+from sklearn.preprocessing import LabelEncoder
 
+df = pd.DataFrame({'Fruits':['Apple','Banana','Banana','Mongo','Banana']})
+label_enc = LabelEncoder()
+num_type = label_enc.fit_transform(df['Fruits'])
+print(num_type)
+onehot_enc = OneHotEncoder()
+num_type_onehot = onehot_enc.fit_transform(num_type.reshape(-1,1))
+print(num_type_onehot.toarray())
 
+'''
+[0 1 1 2 1]
+[[1. 0. 0.]
+ [0. 1. 0.]
+ [0. 1. 0.]
+ [0. 0. 1.]
+ [0. 1. 0.]]
+'''
+
+# method 2: pandas get dummies
+pd.get_dummies(df)
+'''
+Fruits_Apple	Fruits_Banana	Fruits_Mongo
+0	1	0	0
+1	0	1	0
+2	0	1	0
+3	0	0	1
+4	0	1	0
+'''
 ```
 
+##### encoding with many classes
+
+1, define a hierarchy structure: for the zip code, use regions -> states -> city as the hierarchy and choose a specific level to encode the zip code column
+
+2, try to group the levels by similarity to reduce the over number of groups. PCA
 
 
-### DP: Handling Missing Values
 
-### FE: Filtering and Scaling
+### DP 3: Handling Missing Values
 
-### FE: Transformation
+##### dropna
 
-### FE: Text-Based Features
+Risk of dropping - may lose information in features (undercutting)
+
+```python
+df1 = pd.DataFrame({'Fruits':['Apple','Banana','Banana','Mongo','Banana'], 'number':[5, None, 3,None,1]})
+
+# how many missing values for each Column
+df1.isnull().sum()
+
+# how many missing values for each Row
+df1.isnull().sum(axis =1)
+
+# dropna
+df1.dropna(how = 'all')
+# thresh - require that many non-NA values
+df1.dropna(thresh=3)
+df1.dropna(subset = ['Fruits'])
+```
+
+##### Imputer
+
+Root cause of missing value - random missing? 
+
+Mean, median, most frequent
+
+```python
+from sklearn.preprocessing import Imputer
+import numpy as np
+
+arr = np.array([[1,2,3,4],[2,None,5,None],[2,3,4,None]])
+# mean from same column 
+imputer = Imputer(strategy ='mean')
+imputer.fit_transform(arr) 
+'''
+array([[1. , 2. , 3. , 4. ],
+       [2. , 2.5, 5. , 4. ],
+       [2. , 3. , 4. , 4. ]])
+'''
+```
+
+##### advanced imputing methods
+
+MICE(Multiple imputation by chained equations) `sklearn.impute.MICEImputer`
+
+python: KNN impute, SoftImpute, MICE
+
+### Feature Engineering
+
+Create new features that has a better prediction power for the actual problem on hand
+
+##### sklearn.feature_extraction
+
+X^2
+
+X1 & X2
+
+### FE 1: Filtering and Scaling
+
+Image - Remove color channels if color is not important
+
+Audio - Remove frequencies if the power is less than a threshold 
+
+Different range of volume - align different feature to same scale
+
+decision tree and random forests aren't sensitive to features on different scales
+
+> 概率模型（树形模型）不需要归一化，因为它们不关心变量的值，而是关心变量的分布和变量之间的条件概率，如决策树、RF。
+
+### FE 2: Transformation
+
+#### Scaling: per column
+> 1, remove the mean
+> 2, scale to unit variance
+
+##### Mean/Variance - [StandardScaler](https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html)
+
+`sklearn.preprocessing.StandardScaler` 高斯：mean 0，variance 1
+
+优：1, algorithm behave better 2, keep outlier information, but reduce impact
+
+
+
+![standardscaler](awsml_pic/standardscaler.png)
+
+```python
+from sklearn.preprocessing import StandardScaler
+
+scale = StandardScaler()
+arr = np.array([[1,1,1,1],[2,2,2,2],[3,3,3,3]],dtype =float)
+scale.fit(arr)
+
+print(scale.mean_)
+print(scale.scale_)
+print(scale.transform(arr))
+
+# feed new data for the same scaler 
+scale.transform([[4,4,4,4]])
+```
+
+##### Min/Max  - [MinMaxScaler](MinMaxScaler)
+
+`sklearn.preprocessing.StandardScaler` min:0 max:1
+
+优：robust to small standard deviation
+
+
+
+![minmaxscaler](awsml_pic/minmaxscaler.png)
+
+```python
+from sklearn.preprocessing import MinMaxScaler
+data = [[-1, 2], [-0.5, 6], [0, 10], [1, 18]]
+scaler = MinMaxScaler()
+scaler.fit(data)
+print(scaler.data_max_)
+print(scaler.data_min_)
+print(scaler.scale_)
+'''
+[[0.   0.  ]
+ [0.25 0.25]
+ [0.5  0.5 ]
+ [1.   1.  ]]
+'''
+```
+
+##### Maxabs - [MaxAbsScaler](https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.MaxAbsScaler.html)
+
+优：
+
+![maxabs](awsml_pic/maxabs.png)
+
+```python
+from sklearn.preprocessing import MaxAbsScaler
+X = [[ 1., -1.,  2.],
+     [ 2.,  0.,  0.],
+    [ 0.,  1., -1.]]
+
+transformer = MaxAbsScaler().fit(X)
+transformer.transform(X)
+
+'''
+array([[ 0.5, -1. ,  1. ],
+       [ 1. ,  0. ,  0. ],
+       [ 0. ,  1. , -0.5]])
+'''
+```
+
+##### robust - [RobustScaler](http://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.RobustScaler.html)
+
+优：robust to outliers
+
+![robutscaler](awsml_pic/robutscaler.png)
+
+##### Normalization: per row
+
+Normalizer
+
+### FE 3: Text-Based Features
 
 
 
