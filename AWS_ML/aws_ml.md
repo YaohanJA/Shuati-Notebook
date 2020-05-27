@@ -428,6 +428,8 @@ MICE(Multiple imputation by chained equations) `sklearn.impute.MICEImputer`
 
 python: KNN impute, SoftImpute, MICE
 
+
+
 ### Feature Engineering
 
 Create new features that has a better prediction power for the actual problem on hand
@@ -451,6 +453,8 @@ decision tree and random forests aren't sensitive to features on different scale
 > 概率模型（树形模型）不需要归一化，因为它们不关心变量的值，而是关心变量的分布和变量之间的条件概率，如决策树、RF。
 
 ### FE 2: Transformation
+
+#### [Compare the effect of different scalers on data with outliers](https://scikit-learn.org/stable/auto_examples/preprocessing/plot_all_scaling.html#sphx-glr-download-auto-examples-preprocessing-plot-all-scaling-py)
 
 #### Scaling: per column
 > 1, remove the mean
@@ -509,7 +513,7 @@ print(scaler.scale_)
 
 ##### Maxabs - [MaxAbsScaler](https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.MaxAbsScaler.html)
 
-优：
+优：doesnt destroy sparsity, dont center throught any measurment
 
 ![maxabs](awsml_pic/maxabs.png)
 
@@ -521,7 +525,6 @@ X = [[ 1., -1.,  2.],
 
 transformer = MaxAbsScaler().fit(X)
 transformer.transform(X)
-
 '''
 array([[ 0.5, -1. ,  1. ],
        [ 1. ,  0. ,  0. ],
@@ -533,11 +536,35 @@ array([[ 0.5, -1. ,  1. ],
 
 优：robust to outliers
 
+​       （因为不需要outliers to calculate median and quantiles）
+
 ![robutscaler](awsml_pic/robutscaler.png)
+
+```python
+from sklearn.preprocessing import RobustScaler
+>>> X = [[ 1., -2.,  2.],
+...      [ -2.,  1.,  3.],
+...      [ 4.,  1., -2.]]
+>>> transformer = RobustScaler().fit(X)
+>>> transformer
+RobustScaler()
+>>> transformer.transform(X)
+array([[ 0. , -2. ,  0. ],
+       [-1. ,  0. ,  0.4],
+       [ 1. ,  0. , -1.6]])
+```
+
+
 
 ##### Normalization: per row
 
-Normalizer
+##### [`sklearn.preprocessing`].[Normalizer](https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.Normalizer.html)
+
+![normal](awsml_pic/normal.png)
+
+### FE 2: Transformation
+
+
 
 ### FE 3: Text-Based Features
 
