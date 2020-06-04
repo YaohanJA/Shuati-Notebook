@@ -6,8 +6,6 @@
 >
 > pandoc xx.native -t markdown_phpextra -o yy.md
 
-
-
 # Exam Logistics
 
 - 170 min
@@ -22,18 +20,12 @@
   - **Multiple response**
 
 建议：
-
 - 先读题，尝试在看选项前答题。
-
 - 找关键词（qualifier & key phrase），并根据此去掉错误选项。
-
 - 实在不会，先跳过。
-
 [exam preparation path](https://aws.amazon.com/training/learning-paths/machine-learning/exam-preparation/)
 
   
-
-
 ## Part I: Data engineering - 20%
 ### 1，Create data repositories for ML
 
@@ -558,32 +550,75 @@ array([[ 0. , -2. ,  0. ],
 
 ##### Normalization: per row
 
-##### [`sklearn.preprocessing`].[Normalizer](https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.Normalizer.html)
+##### [`sklearn.preprocessing.Normalizer`](https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.Normalizer.html)
 
 ![normal](awsml_pic/normal.png)
 
+
+
 ### FE 2: Transformation
 
+[`sklearn.preprocessing`PolynomialFeatures](https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.PolynomialFeatures.html)
 
+```python
+import numpy as np
+import pandas as pd
+from sklearn.preprocessing import PolynomialFeatures
+df = pd.DataFrame({'a':np.random.rand(5),'b':np.random.rand(5)})
+cube = PolynomialFeatures(degree=2)
+cube_features = cube.fit_transform(df)
+cols = cube.get_feature_names()
+pd.DataFrame(cube_features,columns=cols)
+
+​```
+1	x0	x1	x0^2	x0 x1	x1^2
+0	1.0	0.737737	0.778589	0.544255	0.574393	0.606200
+1	1.0	0.514332	0.649603	0.264537	0.334111	0.421984
+2	1.0	0.550124	0.603712	0.302636	0.332116	0.364468
+3	1.0	0.260384	0.335987	0.067800	0.087486	0.112888
+4	1.0	0.211664	0.154232	0.044802	0.032645	0.023788
+​```
+```
+
+注意：
+
+- overfitting if the degree is too high 
+- sensitive to extrapolation beyond the range![extrapolationBeyondTheRange](awsml_pic/extrapolationBeyondTheRange.png)
+- 考虑Non-polynomial transformations
+  - log
+  - sigmoid
+  - SVM - radio basis function![radiobasis](awsml_pic/radiobasis.png)
 
 ### FE 3: Text-Based Features
 
+Bag of words model
 
+![bagofwords](awsml_pic/bagofwords.png)
 
+##### Count vectorizer
 
+![count](awsml_pic/count.png)
 
-## Model Training, Tuning, and Debugging
+##### TFIDF
 
-## Supervised learning:
+![tfid](awsml_pic/tfid.png)
 
-### Linear methods
+##### Hashing 
+
+![hash](awsml_pic/hash.png)
+
+# Model Training, Tuning, and Debugging
+
+# Supervised learning
+
+## Linear methods
 
 | Linear                                | ![linear](awsml_pic/linear.png?lastModify=1587378794) |
 | ------------------------------------- | ------------------------------------------------------------ |
 | **Linear regression (univariate)**    | ![lr](awsml_pic/lr.png?lastModify=1587378794) |
 | **Multivariate LR** Multicollinearity | ![mlr](awsml_pic/mlr.png?lastModify=1587378794) |
 
-### Logistic regression
+## Logistic regression
 
 |                               | ![logistic](awsml_pic/logistic.png?lastModify=1587378794) |
 | ----------------------------- | ------------------------------------------------------------ |
@@ -591,9 +626,7 @@ array([[ 0. , -2. ,  0. ],
 | Logit function                | ![lgr](awsml_pic/lgr.png?lastModify=1587378794)  The **logit** function is the inverse of the logistic function.  ![l](awsml_pic/l.png?lastModify=1587378794) |
 | fit logistic regression model | ![fitsigmoid](awsml_pic/fitsigmoid.png?lastModify=1587378794)![logit](awsml_pic/logit.png?lastModify=1587378794) |
 
-
-
-### Neural Networks
+## Neural Networks
 
 #### Perceptron
 
@@ -610,11 +643,17 @@ Scikit-learn: sklearn.neural_network.MLPClassifier
 | -------------------------------------------------------- | ------------------------------------------ |
 | Hard to interpret<br>expensive to train, fast to predict | PyTorch<br/>Caffe<br/>TensorFlow<br/>MXnet |
 
-##### CNN
+##### CNN - 图片
 
-convolutional neural networks - classify images
+convolutional neural networks卷积神经网络 - classify images
 
-卷积神经网络
+> input: image, sequence of images
+>
+> kernels as filters to extract local features, use filters to convolve with the image to create the next layer. 
+>
+> different layers, channels
+
+
 
 power image search services, self-driving cars, automatic video classification systems
 voice recognition
@@ -663,7 +702,7 @@ Category
 
 [Image convolution examples](http://neuralnetworksanddeeplearning.com/chap6.html#introducing_convolutional_networks)
 
-##### RNN
+##### RNN/LSTM
 
 Recurrent neural network
 
@@ -672,25 +711,31 @@ Recurrent neural network
 - for Feedforward neural network and convolutional, independent input
 - Time series, language, sequencial feature
 
-### **K-Nearest Neighbors**
-
-|  |  |
-| ---- | ---- |
-| 1, Define a distance measure in the training data<br />2, Apply for new data point<br />3, Comment the observation [预测预测目标和所有样本之间的距离或者相似度]<br />4, Identify the nearst neighbors<br />5, Define the k [Small k, local observation, large k, more global]<br />6, vote | ![neural_network](awsml_pic/knn.png)<br />![neural_network](awsml_pic/knn.png) |
-| 1, 简单，memory-based, instance based<br />2, 适合低纬（少features）<br />3, 预测中要循环所有样本 | ![neural_network](awsml_pic/knn3.png) |
-|  |  |
 
 
+## **K-Nearest Neighbors**
 
-more features, more sparse in the space the data point will be
+#### 过程
 
-2， 重要特征的占比被削减【特征选择】| 距离算法的复杂度和向量的长度成线性关系
+1, Define a distance measure in the training data<br />2, Apply for new data point<br />3, Comment the observation [预测预测目标和所有样本之间的距离或者相似度]<br>4, Identify the nearst neighbors<br />
 
-4，不能实时
+![neural_network](awsml_pic/knn.png)
 
-只保留代表性样本，KD-Tree，近似的算法 LSH (牺牲一点准确度)
+5, Define the k [Small k, local observation, large k, more global]<br />6, vote 
 
-##### 二分问题
+![neural_network](awsml_pic/knnex.png)
+
+#### 优点
+
+1, 简单，memory-based, instance based<br />2, 适合低纬（少features）<br />3, 预测中要循环所有样本
+
+#### 缺点
+
+![neural_network](awsml_pic/knn3.png)
+
+
+
+#### KNN二分问题
 
 一般对于二分类问题来说，把K设置为奇数是容易防止平局的现象。但对于多分类来说，设置为奇数未必一定能够防平局。 
 
@@ -736,28 +781,7 @@ correct = np.count_nonzero((predictions==y_test)==True)
 print ("Accuracy is: %.3f" %(correct/len(X_test)))
 ```
 
-##### 4 点需要注意
-
-1, X -- Feature Engineering
-
-2,  需要提前样本标注
-
-3, 计算2个物体之间的相似度
-
-- 欧氏距离 *Euclidean distance*
-
-4, 选择合适的K
-
-- 决策边界：拥有线性决策边界的模型我们称为线性模型，反之非线性模型。
-  - 线性分类器
-  - 非线性分类器
-- 模型的泛化能力
-
-[k 自信的程度，k = 1 近的人是A 抄作业 1个就够， 旁边都是B 需要更多的K]
-
-collaborative filtering. -- 
-
-##### KNN的决策边界
+1, KNN的决策边界
 
 -  随着K值的增加，决策边界确实会变得更加平滑，从而模型变得更加稳定。
 
@@ -765,7 +789,9 @@ collaborative filtering. --
 ![knn_k_1](knn/knn_k_1.png)
 ![knn_k_1](knn/knn_k_2.png)
 
-##### 交叉验证
+
+
+2, 交叉验证
 
 将数据分成训练数据和验证数据，选择在验证数据里最好的超参数。
 
@@ -775,7 +801,7 @@ collaborative filtering. --
 - 数据量较少的时候我们取的K值会更大
 - 极端情况：*leave_one_out* 留一法交叉验证，也就是每次只把一个样本当做验证数据，剩下的其他数据都当做是训练样本。
 
-###### 自己写
+2_1 自己写
 
 ```python
 
@@ -803,7 +829,7 @@ print("after cross validation, the final best k is: %d"%best_k)
   
 
 ```
-###### GridSearch
+2_2 GridSearch
 
 
 ```python
@@ -826,24 +852,7 @@ K:
 - 对于KNN来讲，我们一般从K=1开始尝试，但不会选择太大的K值。而且这也取决于计算硬件，因为交叉验证是特别花时间的过程，因为逐个都要去尝试
 - 提高效率：并行化、分布式的处理。针对于不同值的交叉验证之间是相互独立的，完全可以并行化处理。
 
-**我们绝对不能把测试数据用在交叉验证的过程中**
-
-##### 特征缩放
-
-- 特征值上的范围的差异对算法影响非常大。
-- 标准化的操作，也就是把特征映射到类似的量纲空间，目的是不让某些特征的影响变得太大。
-
-###### Min-max Normalization
-
-线性归一化：把特征值的范围映射到[0,1]区间
-<img src= knn/min_max.png  style="zoom:50%" />
-
-###### Z-score Normalization
-
-标准差归一化：特征值映射到均值为0，标准差为1的正态分布
-<img src= knn/zscore.png  style="zoom:50%" />
-
-##### 图像识别Knn
+3_图像识别Knn
 
 http://www.cs.toronto.edu/~kriz/cifar.html
 
@@ -872,43 +881,15 @@ plt.imshow(img)
 - 这种降维操作会更好地保留图片中重要的信息，同时也帮助过滤掉无用的噪声。
 - PCA ：对数据做线性的变换，然后在空间里选择信息量最大的Top K维度作为新的特征值。
 
-##### 缺失值
-
-1，删除：70%缺失值，删除column
-
-2，补平
-
-##### 特征编码feature encoding
-
-###### categorical
-
-- 字符串转换成数值类型
-
-Label encoding 标签编码:一个类别表示成一个数值，比如0，1，2，3….
-
-one-hot encoding 独热编码
-<img src= /Users/yaohanjiang/Desktop/daily/ML模型/one_hot.png  style="zoom:50%" />
-
-###### Integer 数值型
-
-标准化操作
-
-离散化操作 Discretization
-<img src= knn/discretization.png  style="zoom:50%" />
-
 阈值的确定：保证各个区间的样本个数是类似的
 
 1，增加模型的非线性型
 
 2，有效处理理数据分布的不均匀的特点。
 
-##### Ordinal顺序
-
-每一种值都有大小的关系，也就是程度上的好坏之分
 
 
-
-#### 二：回归问题
+#### KNN回归问题
 <img src= knn/knn回归举例.png  style="zoom:50%" />
 
 1，特征处理
@@ -926,7 +907,7 @@ one-hot encoding 独热编码
 
 
 
-#### 三： 复杂度分析以及KD树
+#### KNN复杂度分析以及KD树
 
 KNN在搜索阶段的时间复杂度是多少？
 
@@ -945,9 +926,78 @@ KNN在搜索阶段的时间复杂度是多少？
 
 
 
-### **Supervised Learning: Linear and Non-Linear Support Vector Machines**
+### Linear and Non-Linear Support Vector Machines
 
-### **Supervised Learning: Decision Trees and Random Forests**
+#### Linear SVM
+
+Maximize the margin - the distance btw the decision boundry (hyperplane) and the support vectors (data points at the boundary)
+
+![svm](awsml_pic/svm.png)
+
+popular in research but not in the industry
+
+缺点：
+
+max margin picture only applys linerly separable cases
+
+Sklearn.svm.SVC
+
+#### Non-linear SVM
+
+"Kernerlize" function (distance function) to solve nonlinear.
+
+缺点：remember all the data points on the boundary, not memory-efficient and expensive ocmputation.
+
+![svm](awsml_pic/svmnon.png)
+
+
+
+### **Decision Trees and Random Forests**
+
+Entropy
+
+![svm](awsml_pic/entropy.png)
+
+Relative measure of disorder(无序) in the data
+
+Classification, reduce the entropy. 
+
+![svm](awsml_pic/entropy1.png)
+
+DT 
+
+
+
+Information Gain (IG) 
+
+one metric to quantify IG: 
+
+> ig = before-splitting **Entropy** - after-splitting **Entropy** 
+>
+> 1  = 1 (contain both class) - 0 (belong to 1 class)
+>
+> [max 1, min 0]
+
+![svm](awsml_pic/ds.png)
+
+![svm](awsml_pic/ds1.png)
+
+
+
+Overfitting:
+
+- "Prune"
+- ensembles method
+
+RF
+
+
+
+
+
+
+
+
 
 ### Model Training: Validation Set
 
