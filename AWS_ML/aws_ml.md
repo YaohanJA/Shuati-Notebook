@@ -131,37 +131,7 @@ ML is the subfield of AI, prevalence of large data sets and massive computationa
 | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | <img src="awsml_pic/define_probelm.png" alt="define_probelm" style="zoom:50%;" /> | <img src="awsml_pic/input.png" alt="input" style="zoom:50%;" /> | <img src="awsml_pic/output.png" alt="output" style="zoom:50%;" /> |
 
-##  🌟ML Process
-
-![MLprocess](awsml_pic/MLprocess.png)
-
-| Feature Engineering domain specific | <img src="awsml_pic/domain_specific.png" alt="domain_specific" style="zoom:50%;" /> |
-| ----------------------------------- | ------------------------------------------------------------ |
-| **Parameter Tuning**                | - loss function [和ground truth的差别]<br/>- regularisation [increase the generalization to better fit the data]<br/>- learning parameters (decay rate 控制model学习的快慢)<img src="awsml_pic/parameter_tunning.png" alt="parameter_tunning" style="zoom:50%;" /> |
-
-
-## Evaluation 
-
-#### 1, Overfitting vs underfitting（generalize more toward unseen data）
-
-- use validation error 
-
-- using training error -> overfitting, lack of feature/information -> undercutting
-
-#### 2, Bias-variance tradeoff [supervised]
-
-<img src="awsml_pic/bias-variance_tradeoff.png" alt="bias-variance_tradeoff" style="zoom:50%;" />
-
-#### 3, evaluation matrix
-
-| 模型       | evaluation                                      |                      |
-| ---------- | ----------------------------------------------- | -------------------- |
-| Regression | <img src="awsml_pic/regression_eva.png"  /> | -RMSE，MAPE 越大越好<br> -R^2 越大越好 |
-| Classification | - confusion matrix<img src="awsml_pic/confusion_matrix.png" alt="confusion_matrix" style="zoom:50%;" /> <br/> -precision recall <img src="awsml_pic/presion_recall.png" alt="presion_recall" style="zoom:50%;" /> | - precision: how correct we are on ones we predictect would be positive <br/> - recall: fraction of negatives that we wrongly predicted<br>i.e. search engine; precision, quality and how relevant it is; completeness and fraction of relevance |
-| Binary classification 例子 | - type I: alpha ~ 5%<br/>- type II: beta 1- power<br/>- power ~ 80% [依情况订]<br/><img src="awsml_pic/type12error.png" alt="type12error" style="zoom:50%;" /><img src="awsml_pic/binary.png" alt="binary"  /> <br> - specificity = TN/TN + FP <br> - FPR = 1- specificity = FP/ TN + FP<br> \ | - precision：在我们判断是disease中有多少人是真的病了<br>- recall: 在有disease的样本量中，有多少我们可以正确的判断出来。<br>- accuracy: 正确判断的[overall]。<br> |
-| ROC <br>AUC | <img src="awsml_pic/roc.png" alt="a" style="zoom:30%;" /><img src="awsml_pic/a.png" alt="a" style="zoom:30%;" /> | ROC: <br/>1, 选择不同的threshold，TPR 和 FPR 对应关系。<br/>2, FPR越小，TPR越大。全局最优解，能接受的FPR左边能接受的点。<br/> AUC: auc 面积越大，模型越好 |
-
-### Key issues in ML
+### 5, Key issues in ML
 
 [AWS: The elements of Data Science](https://aws.amazon.com/training/learning-paths/machine-learning/exam-preparation/)
 
@@ -201,8 +171,19 @@ use sagemaker and EC2
 
 # The elements of ML
 
+##  🌟ML Process
 
-## data collection 
+![MLprocess](awsml_pic/MLprocess.png)
+
+| Feature Engineering domain specific | <img src="awsml_pic/domain_specific.png" alt="domain_specific" style="zoom:50%;" /> |
+| ----------------------------------- | ------------------------------------------------------------ |
+| **Parameter Tuning**                | - loss function [和ground truth的差别]<br/>- regularisation [increase the generalization to better fit the data]<br/>- learning parameters (decay rate 控制model学习的快慢)<img src="awsml_pic/parameter_tunning.png" alt="parameter_tunning" style="zoom:50%;" /> |
+
+### 
+
+## 1️⃣Data prepation 
+
+## Data collection 
 
 ### sampling 
 
@@ -285,7 +266,7 @@ scatterplot matrix (linear relationship) - visualize attribute-target and attrib
 
 
 
-## Data Processing and Feature Engineering 
+## 2️⃣Data Processing and Feature Engineering 
 
 ### **DP 1:  Encoding Categorical Variables**
 
@@ -550,7 +531,9 @@ array([[ 0. , -2. ,  0. ],
 
 ##### Normalization: per row
 
-##### [`sklearn.preprocessing.Normalizer`](https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.Normalizer.html)
+###### sklearn
+
+[`sklearn.preprocessing.Normalizer`](https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.Normalizer.html)
 
 ![normal](awsml_pic/normal.png)
 
@@ -607,18 +590,16 @@ Bag of words model
 
 ![hash](awsml_pic/hash.png)
 
-# Model Training, Tuning, and Debugging
+## 3️⃣Model Training, Tuning, and Debugging
 
-# Supervised learning
-
-## Linear methods
+### Linear methods
 
 | Linear                                | ![linear](awsml_pic/linear.png?lastModify=1587378794) |
 | ------------------------------------- | ------------------------------------------------------------ |
 | **Linear regression (univariate)**    | ![lr](awsml_pic/lr.png?lastModify=1587378794) |
 | **Multivariate LR** Multicollinearity | ![mlr](awsml_pic/mlr.png?lastModify=1587378794) |
 
-## Logistic regression
+### Logistic regression
 
 |                               | ![logistic](awsml_pic/logistic.png?lastModify=1587378794) |
 | ----------------------------- | ------------------------------------------------------------ |
@@ -626,7 +607,7 @@ Bag of words model
 | Logit function                | ![lgr](awsml_pic/lgr.png?lastModify=1587378794)  The **logit** function is the inverse of the logistic function.  ![l](awsml_pic/l.png?lastModify=1587378794) |
 | fit logistic regression model | ![fitsigmoid](awsml_pic/fitsigmoid.png?lastModify=1587378794)![logit](awsml_pic/logit.png?lastModify=1587378794) |
 
-## Neural Networks
+### Neural Networks
 
 #### Perceptron
 
@@ -713,7 +694,7 @@ Recurrent neural network
 
 
 
-## **K-Nearest Neighbors**
+### **K-Nearest Neighbors**
 
 #### 过程
 
@@ -930,13 +911,15 @@ KNN在搜索阶段的时间复杂度是多少？
 
 #### Linear SVM
 
+##### 总结
+
 Maximize the margin - the distance btw the decision boundry (hyperplane) and the support vectors (data points at the boundary)
 
 ![svm](awsml_pic/svm.png)
 
 popular in research but not in the industry
 
-缺点：
+##### 缺点
 
 max margin picture only applys linerly separable cases
 
@@ -946,7 +929,9 @@ Sklearn.svm.SVC
 
 "Kernerlize" function (distance function) to solve nonlinear.
 
-缺点：remember all the data points on the boundary, not memory-efficient and expensive ocmputation.
+##### 缺点
+
+remember all the data points on the boundary, not memory-efficient and expensive ocmputation.
 
 ![svm](awsml_pic/svmnon.png)
 
@@ -954,68 +939,626 @@ Sklearn.svm.SVC
 
 ### **Decision Trees and Random Forests**
 
-Entropy
+#### Entropy
 
 ![svm](awsml_pic/entropy.png)
 
 Relative measure of disorder(无序) in the data
 
-Classification, reduce the entropy. 
+**The Classification problem is to reduce the entropy.** 
+
+For each subset of data, the disorder is smaller. 
 
 ![svm](awsml_pic/entropy1.png)
 
-DT 
+#### DT 
 
+##### 总结
 
+Training process (build the tree) is utilized to maximizing the IG to choose splits (the impurity of the split [disorder/entropy] sets are lower).
 
-Information Gain (IG) 
+##### sklearn
 
-one metric to quantify IG: 
+Sklearn.tree.DecisionTreeClassifier
 
-> ig = before-splitting **Entropy** - after-splitting **Entropy** 
+##### 过程
+
+1, Node are split based on feature that has the largest information gain (IG) between parent node and its split node.
+
+> One metric to quantify IG: 
 >
-> 1  = 1 (contain both class) - 0 (belong to 1 class)
+> IG = before-splitting **Entropy** - after-splitting **Entropy** 
 >
 > [max 1, min 0]
+>
+> > 1  = 1 (contain both class) - 0 (belong to 1 class)
+> >
+> > ![binaryentropy](awsml_pic/binaryentropy.png)
 
-![svm](awsml_pic/ds.png)
+2, The splitting procedure can go iteratively at each child node until the end-nodes (leaves) are pure (entropy ~ 0, one class in each node).
 
-![svm](awsml_pic/ds1.png)
+- But the splitting procedure usually stops at certain criteria to prevent overfitting.
+
+##### 优点
+
+- Easy to interpret
+- Expressive = flexible (啥数据都可)
+- Less need for feature transformations
+
+##### 缺点
+
+- susceptible to overfitting
+  - Overfitting:
+    - "Prune"
+
+##### ensemble method 
+
+ rf | 集成学习![ensemble](awsml_pic/ensemble.png)
+
+#### RF
+
+##### sklearn
+
+sklearn.ensemble.RandomForestClassifier
+
+##### 过程
+
+1, Set of decision trees - each classifer (上图) learned from a different randomly sample subset with replacement.
+
+2, Random selection of original features to split on for each tree. 
+
+3, Prediction: avg output probabilities
+
+##### 优点
+
+- Increase diversity throug random selection of training dataset and subset of features for each tree. (X overfitting)
+
+- Reduced variance through averaging.
+
+- Each tree typically does not need to be pruned/
+
+##### 缺点
+
+More expensive to train and run
+
+##### 熵
+
+![熵](awsml_pic/熵.png)
+
+## Model Training
+
+### Validation Set
+
+Training data: builds the model
+
+Validation data: evaluates the model performance during debugging and tuning
+
+Testing data: generalizes the final dataset
+
+![validation](awsml_pic/validation.png)
 
 
 
-Overfitting:
+### **Bias Variance Tradeoff**
 
-- "Prune"
-- ensembles method
+#### Bias-variance tradeoff 
 
-RF
+![bias](awsml_pic/bias.png)
+
+##### Bias
+
+- Estimation of the difference between the fitted model and the actual relationship of response and features. 
+
+- **High bias** can cause an algorithm to miss important relationships between features and target outputs resulting in **underfitting**. [predict的值和actual差很多]
+
+> High bias: 
+>
+> - Try new features
+> - Decrease the degree of regularization
+
+##### Variance
+
+- an error from sensitivity to small variations in the training data. 
+- **High variance** can cause an algorithm to model random noise in the training set, resulting in **overfitting**. [small change in x can lead large change in the y ]
+
+> High variance: 
+>
+> - Increase training data
+> - Decrease the number of features
+
+##### Bias Variance Tradeoff  
+
+<img src="awsml_pic/bias-variance_tradeoff.png " width="350" height="300"><img src="awsml_pic/biasvariance.png " width="400" height="300">
+
+
+
+##### 解决 - learning curve
+
+- plot training dataset and validation dataset <u>error</u> or <u>accuracy</u> aganist training set size
+- <u>movitivation</u>: detect of the model is underfitting or overfitting, and impact of training data size the error
+
+<img src="awsml_pic/learningcurve.png" width="600" height="250">
+
+###### sklearn
+
+**Sklearn.model_selection.learning_curve**
+
+use stratified k-fold cross-validation by default if output is binary or multiclass (preserves percentage of sample in each class)
+
+### Error Analysis
+
+Filter on failed predictions and manually look for patterns
+
+```python
+pred = clf.predict(train[col])
+error_df = test[pred != test['target']]
+```
+
+some common patterns:
+
+- data problems, labeling error
+- Under/over represented subclasses
+- discriminaating information is not captured in features
+
+
+
+## Model Tuning
+
+Overfitting errors can be reduced using regularization - a technique that helps evenly distribute weights among features. 
+
+### Regularization
+
+##### 总结
+
+Adding penalty score for complexity to cost function
+<img src="awsml_pic/regulation.png" width="400" height="80">
+
+##### i.e. linear model
+
+- Idea: large weights correspond to higher complexity -> regularize by penalizing large weights
+- 2 types:
+  <img src="awsml_pic/l1l2.png" width="400" height="80">
+- Find set of features that minimize the cost function with penalty
+
+##### L1, L2
+
+<img src="awsml_pic/l1l21.png" width="400" height="200">
+
+- **Scale** features first! 
+- L1 is useful as feature selection approach since most weights shrink to 0
+- L2 is popular, reduce the weight continusly until it reaches 0, but never reach 0
+
+##### sklearn
+
+<img src="awsml_pic/l1l2sklearn.png" width="600" height="190">
+optimum C parameter: smaller c, stronger regularisation
+
+
+
+### **Hyperparameter Tuning**
+
+Hyperparameter: estimator parameter that is not fitted to the data
+
+Technique: 
+
+##### Grid search 
+
+- - <u>sklearn.grid_search.GridSearchCV</u>
+
+  - search for the best parameter combination over a set of parameters
+  
+  - intensive compution
+    <img src="awsml_pic/gridsearch.png" width="400" height="200">
+  
+  - toy example
+  <img src="awsml_pic/gridsearchexample.png" width="550" height="200">
+
+##### Random search
+
+  - each setting is sampled from a distribution over possible parameter values
+
+### **Feature Extraction**/Selection
+
+> Feature selection: remove features from the model.
+>
+> Feature extraction: combination of the original features to generate new features.
+>
+
+Maps data into smaller feature space that captures the bulk of the information in the data. Data compression.
+
+##### 优点
+
+- Improves computational efficiency
+- Reduces curse of dimensionality
+
+##### PCA - pricipal component analysis
+
+-  find patterns based on correlations btw features
+
+- An unsupervised linear approach to feature extration
+
+- Constructs pricipal components: orthogonal axes in direction of maximum variance 
+
+  -  Kernel versions for non-linear data
+
+  linear <img src="awsml_pic/pca.png" width="200" height="150"> non-linear <img src="awsml_pic/pca2.png" width="350" height="200">
+
+- Sklearn.docomposition.PCA
+  ```python
+  pca = PCA(n_components = 2)
+  X_train_pca = pca.fit_transform(X_train_std)
+  lr = LogisticRegression()
+  lr.fit(X_train_pca)
+  ```
+
+##### LDA - Linear discriminant analysis
+
+- Supervised linear approach
+
+- Transforms to subspace that maximizes class separability, dimensionaly reduction of features
+
+- 假设：1, data is normally distributed
+
+  ​            2, data in difference class share the same covariance in the feature space
+
+- Can reduce to at most (#classes -1 )components
+
+sklearn
+
+Sklearn.discriminant_analysis.LinearDiscriminantAnalysis
+
+
+
+### **Bagging/Boosting**
+
+Feature extraction and selection are relatively manual processes. Bagging and boosting, which are **automated or semi-automated approaches to determining which features to include.**
+
+#### Bagging
+
+ (bootstrap aggregating)
+
+bootstrap 自助法-抽样
+
+##### 总结
+
+Trainging many models on random subsets of the data and average/vote on the output
+
+- 适用于high variance low bias
+
+> reduce variance
+>
+> keep bias the same
+
+##### 过程
+
+1, Create a x datasets of size m by **randomly sampling** original dataset with replacement (duplicates allowed)
+
+2, Train weak leaners (decision stumps, logistic regression) on the new datasets to generate prediction
+
+3, choose the output by combining the individual predictions or voting
+
+###### sklearn
+
+- Avg - lr | sklearn.ensemble.BaggingRegressor
+- voting - classification | sklearn.ensemble.BaggingClassifier
+
+<img src="awsml_pic/bagging.png" width="350" height="175">
+
+
+
+#### Boosting
+
+##### 总结
+
+Training a sequence of samples to get a strong model
+
+- 适用于high bias low variance 
+- mode accepts weights on individual samples
+
+> Often times wins on datasets like most kaggle competitions
+
+###### sklearn
+
+Sklearn.ensemble.AdaBoostClassifier
+
+Sklearn.ensemble.AdaBoostRegressor
+
+Sklearn.ensemble.GradientBoostingClassifier
+
+XGboost - structured datasets
+
+###### 过程
+
+1, Assign strengths to each weak learner
+
+2, Iteratively train learners using **misclassfied** example by the previous weak leaners.
+
+<img src="awsml_pic/boosting.png" width="350" height="150">
+
+
+
+## 4️⃣Model Evaluation and Model Productionizing
+
+### Productizing a ML model
+
+###### aspects of production
+
+<img src="awsml_pic/production1.png" width="500" height="175">
+
+###### Types of production environment
+
+<img src="awsml_pic/production2.png" width="500" height="175">
+
+### Evaluation 
+
+precision = tp/tp + fp
+
+recall = tp/tp+fn
+
+fpr = fp/ fp + tn
+
+
+
+#### Confusion matrix
+
+<img src="awsml_pic/conf.png" width="500" height="200">
+
+##### Accuracy  
+
+Used for a balanced data where positive and negative cases are roughly equal.
+
+<img src="awsml_pic/a1.png" width="200" height="50">
+
+
+
+<img src="awsml_pic/presion_recall.png" width="500" height="150">
+
+In classification problem, we open set the interested responses as positive class which ofen time is realted toa rare situation. TN cases are dominated. 
+
+##### Precision 
+
+<img src="awsml_pic/p1.png" width="200" height="50">
+
+- TN dwarfs (缩小，矮）the other categories, making accuracy useless for comparing models
+- Proportion of positive predictions that are actually correct
+
+##### Recall
+
+<img src="awsml_pic/r1.png" width="200" height="50">
+
+- Proportion of positive set that are iddentified as positive
+- fraction of negatives that we wrongly predicted
+
+i.e. search engine; precision, quality and how relevant it is; completeness and fraction of relevance
+
+##### F-1 score
+
+<img src="awsml_pic/f1.png" width="200" height="50">
+
+- Combination (harmonic mean) of precision and recall
+
+
+
+##### ROC AUC
+
+<img src="awsml_pic/roc.png" width="350" height="200"><img src="awsml_pic/a.png" width="350" height="200">
+
+ROC: <br/>1, 选择不同的threshold，TPR 和 FPR 对应关系。<br/>2, FPR越小，TPR越大。全局最优解，能接受的FPR左边能接受的点。<br/>
+
+AUC: auc 面积越大，模型越好
+
+##### i.e.Binary classification
+
+type I: alpha ~ 5%<br/>- type II: beta 1- power<br/>- power ~ 80% [依情况订]<br/><img src="awsml_pic/type12error.png" alt="type12error" style="zoom:50%;" /><img src="awsml_pic/binary.png" alt="binary"  /> <br> - specificity = TN/TN + FP <br> - FPR = 1- specificity = FP/ TN + FP<br>
+
+- precision：在我们判断是disease中有多少人是真的病了<br>- recall: 在有disease的样本量中，有多少我们可以正确的判断出来。<br>- accuracy: 正确判断的[overall]。<br>
+
+  
+
+#### Cross-validation
+
+##### sklearn
+
+```python
+from sklearn.model_selection import train_test_split
+
+train, test = train_test_split(df[col + ['target']], test_size = 0.3)
+clf = svm.SVC()
+clf.fit(train[col], train['target'])
+
+pred = clf.predict([train[col]])
+print(confusion_matrix(y_true=train['target', y_pred = pred, labels = [1,0]]))
+
+print(clf.score(train[col],train['target']))
+```
+
+##### K-fold cross-validation
+
+###### 适用
+
+Small sets
+
+small training set -> not enough data for good training
+
+unpresentative test set -> invalid metric
+
+k = [5,10]
+
+###### 过程
+
+<img src="awsml_pic/kfold5.png" width="350" height="170"><img src="awsml_pic/kfold.png" width="350" height="170">
+
+1, randomly partition data into k folds
+
+2, for each fold, train model on other k-1 folds and evaluate on that
+
+3, train on all data
+
+4, average metric across k folds eatimates test metric for trained model
+
+##### Leave-one-out 
+
+K = number of data points
+
+Used for very small sets
+
+##### Stratified k-fold
+
+perserve class propotions (equal weight of proportions) in the folds
+
+used for imbalance data
+
+There are seasonlity or subgroups
+
+
+
+#### Metric for Linear Regression
+
+##### Mean squared error MSE
+
+<img src="awsml_pic/mse.png" width="340" height="50">
+
+sklearn.metrics.mean_squared_error
+
+##### R^2 error
+
+Sklearn.metric.r2_score
+
+###### R^2
+
+ <img src="awsml_pic/r^2.png" width="250" height="50">
+
+between 0 and 1
+
+- Fraction of variance accounted for by the model
+- standardized version of MSE
+- good r^2 are determined by actual problem 
+
+more variables added, larger - > overfitting
+
+- 不是R^2越大越好，注意overfitting
+
+###### Adjusted R^2
+
+<img src="awsml_pic/r^2a.png" width="450" height="50">
+
+- Takes into account of the effect of adding more variables such that it only increases when the added variables have significant effect in prediction
+
+Adjusted r^2 is better metric for multiple variates regression
+
+
+
+##### Confidence Interval
+
+###### normal distribution
+
+<img src="awsml_pic/nd.png" width="600" height="250">
+
+###### CI
+
+<img src="awsml_pic/ci.png" width="500" height="200">
+
+<img src="awsml_pic/ci2.png" width="500" height="170">
+
+<img src="awsml_pic/ci3.png" width="500" height="170">
+
+
+
+### Using ML Models in Production
+
+#### **Storage**
+
+**Trade-offs**
+
+Read/write speed, size, platform-dependency, ability for schema to evolve. Schema/ data separability, type richness
+
+low latency, Large storage, scalability
+
+Dynamodb, S3
+
+**Model and pipeline persistence**
+
+**Model deployment** 
+
+- A/B testing or shadow testing - helps catch production issue early 
+
+Information security
+
+
+
+#### Monitoring and Maintenance
+
+performance deterioration may require new tuning
+
+Validation set may be replaced over time to avoid overfitting
+
+**customer obsession**
+
+"creepiness sniff test" or "the front page of a newspaper test"
+
+#### Using AWS
+
+Pre-trained models
+
+**Sagemaker**
+
+Build
+
+- Pre-built notebooks
+- Built-in, high performance algorithm
+
+Train
+
+- One-click training
+- Hyperparameter optimization
+
+Deploy
+
+- One-click deployment
+- fully managed hosting with auto-scaling
+
+**Amazon rekognition image/video**
+
+**Amazon Lex** 
+
+- chatbots to engage customers
+
+- DL functionalities of ASR (automated speech recognition)
+- NLU (natura language understanding)
+
+**Amazon Polly**
+
+Natual sounding text to speech
+
+**Amazon Comprehend**
+
+NLP service
+
+- positive, negative
+
+**Amazon Translate**
+
+voice to text
+
+**Amazon Deeplens**
+
+HD video camera
+
+**AWS Glue** 
+
+- data integration servive for managing ETL 
+
+**Deep scalable sparse tensor network engine** (DSSTNE)
+
+
+
+### **Common Mistakes**
 
 
 
 
 
 
-
-
-
-### Model Training: Validation Set
-
-### **Model Training: Bias Variance Tradeoff**
-
-### **Model Debugging: Error Analysis**
-
-### **Model Tuning: Regularization**
-
-### **Model Tuning: Hyperparameter Tuning**
-
-### **Model Tuning**
-
-### **Model Tuning: Feature Extraction**
-
-### **Model Tuning: Feature Selection**
-
-### **Model Tuning: Bagging/Boosting**
 
 # Math
 
