@@ -1,5 +1,7 @@
 [TOC]
 
+
+
 > Solve the toc problem:
 >
 > option save with naive
@@ -609,11 +611,20 @@ Bag of words model
 
 ### Neural Networks
 
+#### 总结
+<img src="linuxacademy/nn.png" width="350" height="150"> ReLu Sigmoid Tanh
+.
+<img src="linuxacademy/nn1.png" width="350" height="170"> <img src="linuxacademy/nn2.png" width="350" height="170">
+
+
+activation
+
+- introduce non-linearity 
+
 #### Perceptron
 
  [input: linear, 1 layer]
-
-![perceptron](awsml_pic/perceptron.png)
+<img src="awsml_pic/perceptron.png" width="350" height="170">
 
 #### Neural networks
 
@@ -634,8 +645,6 @@ convolutional neural networks卷积神经网络 - classify images
 >
 > different layers, channels
 
-
-
 power image search services, self-driving cars, automatic video classification systems
 voice recognition
 natural language processing
@@ -653,8 +662,6 @@ Convolutional Layer:
 use kernel as features to extract local features
 
 input image, filters to convolve with the image to create the next layer.
-
-
 
 Pooling layer: (dimension reduction)
 
@@ -686,13 +693,10 @@ Category
 ##### RNN/LSTM
 
 Recurrent neural network
-
-![neural_network](awsml_pic/rnn.png)
+<img src="awsml_pic/rnn.png" width="350" height="170">
 
 - for Feedforward neural network and convolutional, independent input
 - Time series, language, sequencial feature
-
-
 
 ### **K-Nearest Neighbors**
 
@@ -991,7 +995,21 @@ Sklearn.tree.DecisionTreeClassifier
   - Overfitting:
     - "Prune"
 
-##### ensemble method 
+#### Gini Impurity
+
+<img src="linuxacademy/gini.png" width="500" height="250">
+
+<img src="linuxacademy/gini2.png" width="500" height="250">
+
+
+
+- 最小的 lowest weighted Gini impurity, so it best separates people who like dogs over cats.
+
+  <img src="linuxacademy/gini3.png" width="500" height="250">
+
+
+
+##### ensemble method | RF
 
  rf | 集成学习![ensemble](awsml_pic/ensemble.png)
 
@@ -1024,6 +1042,49 @@ More expensive to train and run
 ##### 熵
 
 ![熵](awsml_pic/熵.png)
+
+
+
+### **K-Means**
+
+随便的k
+
+centriod
+
+最近的点，移动中心点
+
+Elbow plot - variation stops to change much
+
+
+
+### Latent Dirichlet Allocation (LDA)
+
+- Text analysis | unsupervised
+- Topic analysis | sentiment analysis
+
+Document -> Topic -> word
+
+Corpus of documents 文集
+
+##### 过程
+
+1, topic analysis 
+
+- remove stop words
+- apply "stemming"
+- tokenize 
+- choose the number of topics k
+
+2, LDA
+
+- Randomly assign topics to each word
+- count the words by topic
+- Count the topics by document
+- ressign the words to topics
+
+
+
+
 
 ## Model Training
 
@@ -1322,24 +1383,46 @@ In classification problem, we open set the interested responses as positive clas
 - TN dwarfs (缩小，矮）the other categories, making accuracy useless for comparing models
 - Proportion of positive predictions that are actually correct
 
+<img src="linuxacademy/acu.png" width="500" height="250">
+
+
+
 ##### Recall
 
 <img src="awsml_pic/r1.png" width="200" height="50">
+
+**Sensitivity** 
+
+True positive rate (TPR) - the num of correct positives out of the actual positive results. 
 
 - Proportion of positive set that are iddentified as positive
 - fraction of negatives that we wrongly predicted
 
 i.e. search engine; precision, quality and how relevant it is; completeness and fraction of relevance
 
+##### Specificity
+
+<img src="awsml_pic/specificity1.png" width="200" height="50">
+
+- num of correct positives out of the predicted positive results
+
+<img src="linuxacademy/sen.png" width="500" height="250">
+
 ##### F-1 score
 
 <img src="awsml_pic/f1.png" width="200" height="50">
 
 - Combination (harmonic mean) of precision and recall
-
-
+<img src="linuxacademy/f1.png" width="400" height="150">
+- 
 
 ##### ROC AUC
+
+<img src="linuxacademy/auc.png" width="500" height="300">
+
+<img src="linuxacademy/roc_1.png" width="500" height="300">
+
+
 
 <img src="awsml_pic/roc.png" width="350" height="200"><img src="awsml_pic/a.png" width="350" height="200">
 
@@ -1552,15 +1635,165 @@ HD video camera
 
 
 
-### **Common Mistakes**
+
+
+# AWS MLS-C01
+
+#### Optimization
+
+Sum of squares vs slope of Model Line
+
+- lowest point on this parabola (抛物线)
+
+Gradient Descent
+
+- Step size - learning rate
+- Too large, miss
+- Too small, take longer
+
+#### Hyperparameter
+
+Learning rate
+
+- Determines the size of the step taken during gradient descent optimization 
+- 0-1
+
+Batch size
+
+- The number of samples used to train at any one time
+- All (batch) stochastic (one) mini-batch (some ) 
+- 32 64 128
+
+Epochs
+
+- The number of times that the algorithm will process the entire training data
+- Each epoch contains one or more batches
+- Each epoch should see the model get closer to the desired state
+- 10, 100, 1000 and up
+
+#### RecordIO
+
+"Pipe mode” streams data (As opposed to "Filemode")
+
+• Faster training start times and better throughput
+
+• Most Amazon SageMaker algorithms work best with RecordIO
+
+- Streams data directly from Amazon S3
+- Training instances don't need a local disk copy of data
 
 
 
 
 
+# Other
 
-
-# Math
+### Math
 
 ![math](awsml_pic/math.png)
+
+### Jupyter notebook
+
+Browser <-> Jupyter notebook server <-> Kernel (environment)
+
+​						notebook files
+
+### Framework 
+
+Algorithm
+
+ 						Model -> Train -> Predict
+
+Framework 
+
+<img src="linuxacademy/framework.png" width="500" height="170">
+
+
+
+#### TensorFlow
+
+Tensor - multidimentional array 
+
+Flow - graph
+
+```python
+import tensorflow as tf
+
+graph = tf.get_default_graph()
+a = tf.constant(10, name = 'a')
+b = tf.placeholder(tf.int32, name = 'b') 
+c = tf.multiply(a,b, name = 'c')
+d = tf.add(c,100, name = 'd')
+v_for_b = {b:[
+           [1,2,3],
+  			   [1,2,3],
+]}
+graph.get_operations()
+
+with tf.session() as sess:
+  result = sess.run(d, feed_dict = v_for_b)
+  
+print(result)  
+
+[[110 120 130]
+ [110 120 130]]
+```
+
+
+
+#### PyTorch
+
+```python
+import torch
+x = torch.zeros(2,2) #ones randn
+y = x + 10
+
+q = torch.zeros(2,2, requires_grad = True)  # autogradient feature
+'''
+keep track of the operations that this Tensor
+is involved with and it does that by using autograd or autogradient
+whose purpose in life once training run has been finished, is to perform the differentiation
+required to be able to support the calculation for how to change the weights and biases during that back propagation.
+'''
+w = q + 10
+print(w)
+'''
+tensor([[10., 10.],
+				[10. 10. ]], grad_fn = <addBackward0>)
+'''
+```
+
+- With Tensorflow, you defined the graph upfront and then you ran it.
+
+- With Pytorch, you're creating the graph essentially as you go along, as long as you have autograd turned on it then stores the process of data as you go along, and it can then map it back.
+
+
+
+#### MXNet
+
+```python
+import mxnet as nx
+from mxnet import nd
+
+x = nd.array([[1,2,3],[4,5,6]], mx.gpu()) # default cpu
+
+'''
+. It's got the ability to leave the CPU behind and go to GPUs so differentiated between numpy
+'''
+
+from mxnet import autograd
+x.attach_grad()
+
+with autograd.record():
+  y = x * x + 10
+  
+y.backward()
+x.grad
+```
+
+- MXNet in a similar way to pytorch works in a different way to Tensorflow where you get to actually define your graph or define the flow of data through procedural programming in Python and we specifically turn on the auto grad feature to be able to record the process that we perform to our tensors so that we can then perform back propagation by going backward through the calculations and calculating the gradient and so that forms the core of how MXNet works
+
+
+
+
 
