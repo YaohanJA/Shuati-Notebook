@@ -1639,7 +1639,7 @@ HD video camera
 
 # AWS MLS-C01
 
-#### Optimization
+### Optimization
 
 Sum of squares vs slope of Model Line
 
@@ -1651,7 +1651,7 @@ Gradient Descent
 - Too large, miss
 - Too small, take longer
 
-#### Hyperparameter
+### Hyperparameter
 
 Learning rate
 
@@ -1671,7 +1671,7 @@ Epochs
 - Each epoch should see the model get closer to the desired state
 - 10, 100, 1000 and up
 
-#### RecordIO
+### RecordIO
 
 "Pipe mode” streams data (As opposed to "Filemode")
 
@@ -1681,12 +1681,6 @@ Epochs
 
 - Streams data directly from Amazon S3
 - Training instances don't need a local disk copy of data
-
-
-
-
-
-# Other
 
 ### Math
 
@@ -1795,5 +1789,78 @@ x.grad
 
 
 
+## AWS Platform
+
+### S3
+
+interaction
+
+API
+
+Rest API
+
+Web endpoints
+
+<img src="linuxacademy/s3.png" width="500" height="200">
 
 
+
+**Athena** allows us to be able to perform queries over data that we have inside a S3.
+
+**AWS Glue Data Catalog** - crawl through the S3 bucket to find the data that's in there and produce a database catalog that Athena can use to query the data from S3.
+
+
+
+**Security**
+
+IAM users and roles
+
+bucket policy
+
+**Encryption**
+
+SSE - server side encryption 
+
+KMS - key management system
+
+
+
+Quicksight
+
+AWS Tableau
+
+
+
+
+
+here we have data inside of S3. 
+
+We've then used glue to go and crawl through that data and to figure out the schema for that data, which it's stored in its own database. 
+
+We've then used that to query that from Athena and we use Athena to do some high level feature engineering to say okay, well, we don't want to have the survey ID. We don't want to have the temperature of when the measurements were taken and we want to add together all the different height elements that we had into a single height measurement and 
+
+then we brought that over into QuickSight so that we could visualize that data all within the Amazon Web Services ecosystem and all completely serverless. 
+
+So this is a demonstration of how you can use Amazon Quicksight.
+
+
+
+
+
+Polly
+
+speak 2 text
+
+
+
+Transcribe
+
+
+
+
+
+#### lifecycle configurations 
+
+bootstrap scripts that you can use on EC2 instances.
+
+can run when you create your Jupyter notebook instances
