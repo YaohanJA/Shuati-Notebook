@@ -82,11 +82,13 @@ and run SQL like queries on your time series data.
 
  migrate your mongoDB data.
 
+
+
 #### ✅ Data Migration tools
 
 ##### Data Pipeline
+- Built-in activities / template   
 
-- Built-in activities / template
 <img src="awsml_pic/datapipeline.png" width="500" height="250"> 
 
 ##### DMS
@@ -112,7 +114,7 @@ Database Migration Service
 
 - can change the output format to any of these formats
 
-<img src="awsml_pic/migration.png" width="500" height="250">
+  
 
 #### ✅ Data Helper tools
 
@@ -140,9 +142,11 @@ https://www.youtube.com/watch?v=v5lkNHib7bw
 
 https://aws.amazon.com/blogs/big-data/build-a-data-lake-foundation-with-aws-glue-and-amazon-s3/
 
-### 🦄Streaming Data Collection
 
-#### ✅ Kinesis Data Streams
+
+#### ✅  Streaming Data Collection - Kinesis
+
+##### Kinesis Data Streams
 
 <img src="awsml_pic/kinesis.png" width="500" height="250">
 
@@ -179,58 +183,366 @@ Interaction:
 
 
 
-#### ✅ Kinesis Data Firehose
+##### Kinesis Data Firehose
 
 <img src="awsml_pic/firehose.png" width="500" height="250">
 
 
 
-#### ✅ Kinesis Video Streams
+##### Kinesis Video Streams
 
 <img src="awsml_pic/videostream.png" width="500" height="250">
 
-#### ✅ Kinesis Data Analytics
+##### Kinesis Data Analytics
 
 <img src="awsml_pic/dataanalytics1.png" width="500" height="250">
 
 
 
-| Kinesis Data <br />Streams                                   | Kinesis Data <br />Firehose                                  | Kinesis Video Streams                                       | Kinesis Data Analytics                                       |
-| ------------------------------------------------------------ | ------------------------------------------------------------ | ----------------------------------------------------------- | ------------------------------------------------------------ |
-| <img src="awsml_pic/kinesis1.png" width="190" height="150">  | <img src="awsml_pic/kinesis2.png" width="170" height="150">  | <img src="awsml_pic/kinesis3.png" width="280" height="130"> | <img src="awsml_pic/kinesis4.png" width="280" height="160">  |
-| Process and evaluate logs immediately<br />Real-time data analytics | Stream and store data from devices<br />Create ETL jobs on streaming data |                                                             | Responsive real-time analytics<br />Stream ETL jobs          |
-| Shards. <br />Data retention. [24 hours - 7 days]            | directly output streaming data to s3                         |                                                             | Kinesis Data Analytics gets its input streaming data from Kinesis Data Streams or Kinesis Data Firehose. |
-| cannot write data directly to S3                             |                                                              |                                                             | cannot write data directly to S3                             |
+### 🦄Data Preparation
 
-<img src="awsml_pic/kinesis5.png" width="500" height="250">
+#### ✅ Categorical Encoding
 
+pandas mapping values
 
+https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.map.html
 
+pandas one-hot encoding
 
-
+https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.get_dummies.html
 
 
-### 3，Identify and implement a data-transformation solution
+
+#### ✅ Text Feature Engineering
+
+###### Bag-of-words
+
+Tokenizeds raw text and creates a statistical representation of the text. 
+
+breaks up text by white space to single words.
+
+###### N-Gram
+
+An extension of Bag-of-Words which produces groups of words of n size
+
+N-gram, size = 2
+
+> Unigram - 1
+>
+> Bigram - 2
+>
+> Trigram - 3
+
+##### Orthogonal Sparse Bigram (OSB)
+
+Creates groups of words of size n and outputs every pair of words that includes the first word.
+
+<img src="awsml_pic/osb.png" width="300" height="150">
+
+##### **TFIDF**
+
+Term frequency -Inverse Document Frequency - make common words less inportant
+
+**<u>(Num of documents, number of unique n-grams)</u>**
+
+https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.TfidfVectorizer.html
+
+##### Removing punctuation
+
+##### Lowercase transformation
+
+##### Cartesian product
+
+Creates a new feature from the combination of two or more text or categorical values.
+
+<img src="awsml_pic/Cartesian.png" width="400" height="200">
+
+##### Feature engineering dates
+
+
+
+#### ✅ Numeric Feature Engineering
+
+##### Feature Scaling
+
+###### Normalization
+
+- <u>outlinears</u> can throw off normalization
+- Random cut forest can help outliers
+- [0,1]
+
+###### Standardization
+
+- Mean = 0, variance = 1
+
+- value is z score
 
   
 
+##### Binning
+
+<u>Quantile Binning</u> - creates equal number of bins
+
+
+
+pandas qcut (Quantile Binning)
+
+https://pandas.pydata.org/pandas-docs/version/0.22/generated/pandas.qcut.html
+
+
+
+#### ✅ Image Feature Engineering
+
+[MNIST](http://yann.lecun.com/exdb/mnist/)
+
+<img src="awsml_pic/ImageFE.png" width="400" height="200">
+
+#### ✅ Audio Feature Engineering
+
+<img src="awsml_pic/AudioFE.png" width="400" height="200">
+
+#### ✅ Missing values
+
+missing at random (MAR)
+
+missing completely at random (MCAR)
+
+missing not at random (MNAR)
+
+
+
+###### fillna
+
+https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.fillna.html
+
+###### dropna
+
+https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.dropna.html
+
+#### ✅ Feature selection
+
+###### drop column
+
+https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.drop.html
+
+###### PCA
+
+### 🦄 AWS Data preparation
+
+##### AWS Glue
+
+Crawler
+
+Data Catelog
+
+Job
+
+<img src="awsml_pic/glue-c.png" width="500" height="200">
+
+**AWS Glue Data Catalog** - crawl through the S3 bucket to find the data that's in there and produce a database catalog that Athena can use to query the data from S3.
+
+- Pyspark
+- Scala code
+- python shell
+
+Apache Zeppelin, Jupyter
+
+> AWS Glue Release Review
+>
+> https://acloud.guru/series/release-review/view/111
+>
+> AWS Glue - How it works
+>
+> https://docs.aws.amazon.com/glue/latest/dg/how-it-works.html
+>
+> What is AWS Glue?
+>
+> https://www.youtube.com/watch?v=qgWMfNSN9f4
+>
+> Getting Started with AWS Glue ETL
+>
+> https://www.youtube.com/watch?v=z3HeHlWg88M
+>
+> Using Apache Spark with Amazon SageMaker - AWS Online Tech Talks
+>
+> https://www.youtube.com/watch?v=dada2WzCNPM
+>
+> AWS re:Invent 2018: Integrate Amazon SageMaker with Apache Spark
+>
+> https://www.youtube.com/watch?v=3tHUGmlclI4
+>
+
+##### SageMaker
+
+##### EMR
+
+Apache Spark to integrate directly within SageMaker.
+using AWS Glue is going to be the least amount of effort in terms of infrastructure that you have to set up.
+Since AWS Glue is fully managed we don't have to spin up the infrastructure like we would have to do in EMR.
+
+##### Athena
+
+run SQL queries on your S3 data.
+
+##### Data Pipeline
+
+process and move data **between different AWS compute services.**
+So think about moving data from DynamoDB, RDS, Redshift, sending it through Data Pipeline,
+doing our ETL jobs on EC2 instances or within EMR, and then landing the output dataset
+on one of our selected target data sources.
+
+<img src="awsml_pic/datapipeline1.png" width="500" height="200">
+
+### 🦄TIPS
+
+> AWS re:Invent 2018: Building Serverless Analytics Pipelines with AWS Glue
+>
+> https://www.youtube.com/watch?v=S_xeHvP7uMo
+>
+> AWS re:Invent 2018: Integrate Amazon SageMaker with Apache Spark
+>
+> https://www.youtube.com/watch?v=3tHUGmlclI4
+>
+> Building Serverless ETL Pipelines with AWS Glue
+>
+> https://www.youtube.com/watch?v=PHYWI4Y9mzs
+>
+> Build a Data Lake Foundation with AWS Glue and Amazon S3
+>
+> https://aws.amazon.com/blogs/big-data/build-a-data-lake-foundation-with-aws-glue-and-amazon-s3/
+>
+> AWS re:Invent 2018: Integrate Amazon SageMaker with Apache Spark
+>
+> https://www.youtube.com/watch?v=3tHUGmlclI4
+
+#### DC
+
+<img src="awsml_pic/migration.png" width="600" height="250">
+
+#### Kinesis
+
+| Kinesis Data <br />Streams                                   | Kinesis Data Firehose                                        | Kinesis Video Streams                                       | Kinesis Data Analytics                                       |
+| ------------------------------------------------------------ | ------------------------------------------------------------ | ----------------------------------------------------------- | ------------------------------------------------------------ |
+| <img src="awsml_pic/kinesis1.png" width="190" height="150">  | <img src="awsml_pic/kinesis2.png" width="170" height="150">  | <img src="awsml_pic/kinesis3.png" width="280" height="130"> | <img src="awsml_pic/kinesis4.png" width="250" height="160">  |
+| Process and evaluate logs immediately<br />Real-time data analytics | Stream and store data from devices<br />Create ETL jobs on streaming data |                                                             | Responsive real-time analytics<br />Stream ETL jobs          |
+| Shards. <br />Data retention. [24 hours - 7 days]            | directly output streaming data to s3                         |                                                             | Kinesis Data Analytics gets its input streaming data <br />from Kinesis Data Streams or Kinesis Data Firehose. |
+| cannot write data directly to S3                             | delivery system                                              |                                                             | cannot write data directly to S3                             |
+
+<img src="awsml_pic/kinesis5.png" width="600" height="300">
+
+https://www.youtube.com/watch?v=M8jVTI0wHFM
+
+#### DP
+
+<img src="awsml_pic/missingvalue.png" width="500" height="250">
+
+<img src="awsml_pic/awsdatapreparation.png" width="500" height="200">
+
+#### 错题
+
+
+
 ## Part II: Exploratory data analysis - 24%
 
+#### Relationships
+
+<img src="awsml_pic/eda-a.png" width="800" height="400">
+
+##### Scatter plot
+
+matplotlib Scatter Plot
+
+https://matplotlib.org/api/_as_gen/matplotlib.pyplot.scatter.html
+
+matplotlib Line Charts
+
+https://matplotlib.org/api/_as_gen/matplotlib.pyplot.plot.html
+
+```python
+plt.scatter(x = df['x'], y = df['y'])
+plt.title('Title')
+plt.xlabel('X')
+plt.ylabel('Y')
+plt.savefig('./images/Scatter_Plot.png',format= 'png',dpi = 1200)
+plt.show()
+
+```
+
+##### Bubble plot
+
+https://www.gapminder.org/tools/
 
 
 
+#### Comparisons
+
+##### Bar Charts
+
+##### Line Charts
 
 
 
+#### Distributions
+
+##### Histogram
+
+adjust bins
+
+https://matplotlib.org/api/_as_gen/matplotlib.pyplot.hist.html
+
+##### Box plot
+
+https://matplotlib.org/api/_as_gen/matplotlib.pyplot.boxplot.html
+
+##### Scatter plot
+
+https://matplotlib.org/api/_as_gen/matplotlib.pyplot.scatter.html
 
 
 
+#### Composition
 
+##### Pie chart
 
+https://matplotlib.org/api/_as_gen/matplotlib.pyplot.pie.html
+
+##### Stacked Area Charts
+
+https://matplotlib.org/api/_as_gen/matplotlib.pyplot.stackplot.html
+
+##### Stacked Bar Charts
+
+https://matplotlib.org/gallery/lines_bars_and_markers/bar_stacked.html
+
+#### Heat Map
+
+Show the density
+
+They are used in many different domains and can help show distribution, correlation, relationships and much more insightful information.
+
+#### Amazon QuickSight
+
+BI Tool
+
+Amazon QuickSight Announces General Availability of ML Insights
+
+https://aws.amazon.com/blogs/big-data/amazon-quicksight-announces-general-availability-of-ml-insights/
+
+AWS re:Invent 2018: Introducing ML Insights with Amazon QuickSight
+
+https://www.youtube.com/watch?v=FhI1kVABMF0
 
 
 
 ## Part III: Modellling - 36%
+
+
+
+<img src="awsml_pic/model-a.png" width="500" height="150">
+
+<img src="awsml_pic/model-b.png" width="500" height="250">
+
+
 
 ## Part IV: ML implementation & operation  20%
 

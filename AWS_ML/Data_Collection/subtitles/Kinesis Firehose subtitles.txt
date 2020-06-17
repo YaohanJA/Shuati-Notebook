@@ -1,0 +1,121 @@
+In this lecture, we're going to discuss
+Kinesis Data Firehose.
+We're still talking about the different services
+within the Kinesis family,
+and we've already discussed what Kinesis Data Streams is.
+In this lecture, we'll talk about Kinesis Data Firehose.
+Similar to Kinesis Data Streams,
+we get our data from Data Producers,
+and these can be things like
+application log files from EC2 instances, or servers.
+Or real-time clickstream data from an e-commerce website.
+It could be things like IoT devices,
+or sensors on manufacturing devices.
+Any type of streaming data
+can be considered a data producer.
+Now, with Kinesis Data Firehose,
+we no longer have to worry about shards.
+And since we no longer have to worry about shards,
+we can pre-process the data using AWS Lambda,
+which acts like a ETL service,
+right before we land our data on some data store.
+Now, with Kinesis Data Firehose, we can land our data
+onto RedShift, S3, Amazon Elastic Search, and Splunk.
+Pre-processing the data with Lambda is optional,
+so you don't actually have to use Lambda
+to pre-process the data,
+you could actually just stream the data
+directly from Data Firehose all the way to storage.
+So Firehose is going to be your delivery service
+for streaming data.
+We can also take advantage of S3 Events,
+which allows us to call a Lambda function
+when any event happened on an S3 bucket.
+So for example, if we have some streaming data
+that lands on an S3 bucket,
+we can create an S3 event that calls a Lambda function
+that pushes that data onto DynamoDB.
+So just remember the different places where
+Kinesis Data Firehose can output your data onto,
+or deliver your data onto like RedShift, S3, Splunk,
+and Amazon Elastic Search.
+But in this course, we'll mainly focus on
+outputting our data onto S3.
+So what it does
+is it allows you to easily stream data
+to a final data source, or a final destination.
+So just remember the difference
+between Kinesis Data Streams and Kinesis Data Firehose,
+and the way to do that is
+remember that Kinesis Data Streams has shards,
+and has data retention,
+meaning that if there's some failure
+in your processing tools,
+then Kinesis Data Streams holds onto that data
+so you're able to re-process it.
+Now with Kinesis Data Firehose,
+you don't have to worry about shards,
+and this is mainly used for streaming data
+directly into some storage or data repository, like S3.
+And if you remember with Kinesis Data Streams,
+storing the data is optional.
+We could just run some analytics on it,
+and then get rid of the data and never store it.
+But with Kinesis Data Firehose,
+really our end goal is to store off our data
+somewhere in AWS, like S3.
+So let's answer the question,
+well, when should we use Kinesis Data Firehose?
+Well, when you want to easily collect streaming data.
+So, if you just want to take streaming data
+from some service, some IoT device,
+maybe some clickstream data from a website,
+and store it directly onto S3,
+then Kinesis Data Firehose is really easy to use.
+You just point your data to the Kinesis Data Firehose,
+and set the output destination,
+and Kinesis Data Firehose will handle the rest
+and output your data onto
+whatever data store that you decide.
+And remember that processing the data is optional.
+We can always run the data from Kinesis Data Firehose
+into AWS Lambda, run some ETL processes,
+and transform our data,
+and then output it onto a data source on S3.
+But processing is optional, we don't have to do that.
+And like we said, if our final destination is S3,
+then we might wanna use Kinesis Data Firehose.
+And finally, if data retention is not as important.
+Meaning that if we lose a few records
+within the streaming data, it's not the end of the world,
+and we can just continuously process the data
+and store it onto our data store.
+So what are some use cases for Kinesis Data Firehose?
+Well, if we wanted to stream and store data
+directly from devices.
+What we can do is capture important data
+from IoT devices, or embedded systems,
+or things like customer applications,
+and store that into a data lake.
+Kinesis Data Firehose is a great way to stream our data
+from our data input sources, and store it onto S3
+to create a data lake.
+And we can also use Kinesis Data Firehose
+to create ETL jobs on streaming data.
+So remember when we were talking about data stores,
+we usually do some type of processing
+before we load our data into a data warehousing solution.
+So we could always create ETL jobs
+using AWS Lambda to transform that data
+before we land it into our data warehousing solution.
+So these are a few different use cases
+of Kinesis Data Firehose,
+and just remember the difference
+between Kinesis Data Streams and Kinesis Data Firehose
+in the sense that Kinesis Data Firehose,
+you no longer have to worry about shards,
+and really the end goal is
+to get our data into some data store like S3.
+If you have any questions,
+then please post in the course forum.
+If not, then let's go ahead and move onto the next lecture.
