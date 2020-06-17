@@ -28,14 +28,14 @@
 [exam preparation path](https://aws.amazon.com/training/learning-paths/machine-learning/exam-preparation/)
 
   
-## Part I: Data engineering - 20%
+# Part I: Data engineering - 20%
 ### 🦄Data Collection
 
 #### ✅ Data stores
 
 数据形式[structured, unstruced] -> a centralized repository -> Data Lake
 
-<img src="awsml_pic/data_source.png" alt="data_source" style="zoom:50%;" />
+<img src="awsml_pic/data_source.png" width="500" height="250">
 
 AWS Lake Formation 
 
@@ -442,7 +442,7 @@ https://www.youtube.com/watch?v=M8jVTI0wHFM
 
 
 
-## Part II: Exploratory data analysis - 24%
+# Part II: Exploratory data analysis - 24%
 
 #### Relationships
 
@@ -534,9 +534,11 @@ https://www.youtube.com/watch?v=FhI1kVABMF0
 
 
 
-## Part III: Modellling - 36%
+# Part III: Modellling - 36%
 
+## 🦄Modeling
 
+<img src="awsml_pic/services.png" width="500" height="300">
 
 <img src="awsml_pic/model-a.png" width="500" height="150">
 
@@ -544,7 +546,451 @@ https://www.youtube.com/watch?v=FhI1kVABMF0
 
 
 
-## Part IV: ML implementation & operation  20%
+##### K-fold cross-validation
+
+When using a k-fold cross validation method, we want to see that all k-groups have close to the same error rate. Otherwise, this may indicate that the data was not properly randomized before the training process.
+
+Next question
+
+##### Time series data
+
+######  backtesting
+
+Time-series data should be training and validated in order as it has, by definition, time as a potential influencing feature. A common method to validate time-series data is backtesting, or replaying the historical data as if it were new data, and then evaluating the model on how successful it predicted the historic values.
+
+
+
+### Amazon Mechanical Turk
+
+A crowdsourcing marketplace that makes it easier for individuals and businesses to outsource their processes and jobs to a distributed workforce who can perform these tasks virtually. 
+
+### Sagemaker Modeling
+
+mode algorithms accept CSV in S3
+
+> Content-type : text/csv ; **label_size = 0 for unsupervised** 
+
+##### Protobuf recordIO
+
+Pipe mode
+
+data can be streamed from S3 to the learning instance requiring less EBS space and faster start-up
+
+#### Create Training job API
+
+##### ✅ High-level python library  + Low-level SDK
+
+###### CreateModel API call
+
+CreateModel API call is used to launch an inference container. When using the built-in algorithms, SageMaker will automatically reference the current stable version of the container.
+
+###### Elastic Container Repository
+
+- Instance class
+  
+- Train on GPU, deply on CPU
+  
+  - ##### GPU
+  
+    ML = Math
+  
+    Graphical processing units (GPU) are optimized for math. 
+  
+    GPUs are not the most efficient math engine
+  
+    <img src="awsml_pic/gpu.png" width="500" height="100">
+  
+    But:
+  
+    <img src="awsml_pic/gpu1.png" width="500" height="100">
+  
+    <img src="awsml_pic/gpu2.png" width="500" height="100">
+  
+- Tag
+  - 1 version tag to ensure the stable version
+  - latest for up-to-date version
+  
+- Custom Algorithm 
+	<img src="awsml_pic/sagemaker-trainingowndocker.png" width="500" height="200">
+	
+- Inference
+  <img src="awsml_pic/inference-a.png" width="500" height="180">
+
+
+
+###### Hyperparameter vs Parameter
+
+<img src="awsml_pic/hyperparameterparameter.png" width="500" height="100">
+
+
+
+##### ✅ Apache Spark
+
+If the Hadoop cluster has Spark, you can use the SageMaker Spark Library to convert Spark DataFrame format into protobuf and load onto S3. From there, you can use SageMaker as normal.
+
+<img src="awsml_pic/spark-i.png" width="500" height="200">
+
+###### 
+
+#### Amazon CloudWatch 
+
+Information logged
+
+> Argumetns provided
+>
+> errors during training
+>
+> Algorithm accuracy statistics
+>
+> timing of the algorithm
+
+
+
+## 🦄 Algorithm
+
+#### Algorithm vs Heuristic
+
+Algorithm : 
+
+unambiguous specification of how to solve a class of problems.
+
+a set of steps to solve a specific problem.
+
+Heuristic
+
+a mental shortcut or kind of a rule of thumb, it provides some guidance on doing something, but it doesn't necessarily guarantee a consistent outcome.
+
+#### Develop a good model
+
+<img src="awsml_pic/model-c.png" width="550" height="250">
+
+
+
+DeepRacer
+where we can get this radio controlled car that has a little PC brain on it, and we can build a reward function that rewards it for staying on the track, and gives it no reward if it steers off the track.
+
+
+
+#### ✅ Linear Learner
+
+- Supervised
+
+##### Regression problem
+
+###### SGD
+
+- Adjust to minimize error: stochastic gradient descent 
+
+##### Classification problem
+
+Vector 
+
+- Adjust to minimize error: precision @ recall
+
+| Advantage         | Use Case                            |
+| ----------------- | ----------------------------------- |
+| Flexible          | Predict quantitative value          |
+| Built-in tunning  | Discrete binary classification      |
+| Good first choice | Discrete multi-class classification |
+
+
+
+#### ✅ Factorization Machine 
+
+分解机
+
+Supervised
+
+Binary classification and regression.
+
+**High dimensional sparse datasets**
+
+| Limitations                        | Advantages & Use Case                                        |
+| ---------------------------------- | ------------------------------------------------------------ |
+| Consider only pair-wise features   | High dimensional sparse data sets                            |
+| CSV is not supported *             | click-stream data trying to figure out which ads a person is gonna click based on  what you know about them. |
+| Doesnt work for multiclass problem | recommendation engines. So what sort of movies or products should we <br />recommend based on how that person liked other movies or products |
+| Need lots of data (10k - 10m)      |                                                              |
+| CPUs rock sparse data better       |                                                              |
+| Dont perform well on dense data    |                                                              |
+
+
+one-hot encoding movie watchers and movies, and a lots of 0 in csv
+
+vast majority of that CSV file would be waste 
+
+they use the record IO protobuf with a float 32 tensor that's way more efficient.
+
+
+
+#### ✅ K-means - clustering
+
+Unsupervised
+
+Specify which attributes indicate similarity and group 
+
+Euclidean distance 
+
+| Advantages                |                                    |                                        |
+| ------------------------- | ---------------------------------- | -------------------------------------- |
+| Expects Tabular Data      | Define the indentifying attributes | modified k means                       |
+| CPU instances recommended | Training is a thing                | define number of features and clusters |
+
+
+
+#### ✅ KNN - classification
+
+Predicts the value or classification based on that which are closest. 
+
+index-based, non-parametric
+
+| Features                               | Use Case               |
+| -------------------------------------- | ---------------------- |
+| You choose the number of neighbors (k) | Credit rating          |
+| Lazy algorithm                         | Product recommendation |
+| Stays in memory                        |                        |
+
+
+
+#### ✅ Image analysis
+
+##### Image classification 
+
+Supervised
+
+CNN 
+
+##### Object Detection
+
+Supervised
+
+##### Semantic Segmentation
+
+Low level analysisi of individual pixels and identifies shapes withn an image
+
+**Edge detection**
+
+| Features                   | Use Case                  |
+| -------------------------- | ------------------------- |
+| PNG input                  | Image metadata extraction |
+| GPU instances for training | Computer vision systems   |
+| Deploy on CPU or GPU       |                           |
+
+
+
+#### ✅Anomaly Detection
+
+##### Random Cut Forest
+
+Find occurrences in the data that are significantly beyond normal (> 3 std )
+
+| Features                             | Use Case        |
+| ------------------------------------ | --------------- |
+| Gives an anomaly score to data point | Quality Control |
+| Scales well                          | Fraud Detection |
+| Doesnt benefit from GPU              |                 |
+
+##### IP Insights
+
+Flag odd online behavior that might require closer review
+
+
+| Features                       | Use Case                     |
+| ------------------------------ | ---------------------------- |
+| Ingest Entity/IP address pairs | Tiered Authentication Models |
+| Return inference via a score   | Fraud Detection              |
+| Neural network                 |                              |
+| GPUs recommended for training  |                              |
+| CPU recommended for Inference  |                              |
+
+
+
+#### ✅Text Analysis
+
+##### LDA
+
+How similar documents are based on the frequency of similar words
+
+|                | Use Cases                  |
+| -------------- | -------------------------- |
+| Topic modeling | Article recommendation     |
+|                | Musical influence modeling |
+
+##### Neural Topic Model
+
+
+
+##### Seq2Seq
+
+A language translation engine that can take in some tex tand predict what that text might be in anoter language
+
+| Steps                                             | Use Cases             |
+| ------------------------------------------------- | --------------------- |
+| Embedding, encoding, decoding                     | Language Translations |
+| Commonly initialized with pre-trained word libray | Speech to Text        |
+| GPU                                               |                       |
+
+##### BlazingText
+
+NLP - sentiment analysis, name entity recognition, machine translation
+
+Optimized way to determine contextual semantic relationship between words ina body of text
+
+<img src="awsml_pic/blazingtext.png" width="500" height="200">
+
+| Features                                | Use Cases               |
+| --------------------------------------- | ----------------------- |
+| Expectes single pre-processed text file | Sentiment Analysis      |
+| highly scalable                         | Document Classification |
+| 20x faster than Facebook                |                         |
+
+###### Amazon Comprehend 
+
+###### Amazon Macie
+
+自動探索、分類和保護AWS 中的敏感資料。
+
+##### Object2Vec
+
+Map out things ina d-dimentional space to figure out how similar they might be to one another
+
+Word2Vec
+
+| Features                | Use Cases               |
+| ----------------------- | ----------------------- |
+| Expects pairs of things | Movie Rating Prediction |
+| Feature Engineering     | Document Classification |
+| Training data required  |                         |
+
+
+
+#### Reinforcement Learning
+
+Find the path to the greatest reward
+
+##### Markov Decision Process - MDP
+
+##### Autonomous Vehicles
+
+##### Intelligent HVAC Control
+
+#### 
+
+#### Forecasting - DeepAR
+
+<img src="awsml_pic/deepar.png" width="500" height="150">
+
+| Features                                                     | Use Cases                              |
+| ------------------------------------------------------------ | -------------------------------------- |
+| Support for various time series                              | Forecat new product performance        |
+| More time series is better, at least 300 obs                 | Predict labor needs for special events |
+| Supply hyperparameters                                       |                                        |
+| Automatic evaluation of the model - backtest after training to evaluate the accuracy |                                        |
+
+
+
+#### Ensemble Leaning
+
+use multiple learning algorithms and models collectively to hopefully improve the model accuracy
+
+##### XGBoost
+
+Gradient boosted trees algorithm that attemps to accurately predict a target variable by combining estimates of a set of simpler, weaker models
+
+| Features                                          | Use Cases       |
+| ------------------------------------------------- | --------------- |
+| Accepts CSV and Libsvm for training and inference | Ranking         |
+| only train on CPU and memory bound                | Fraud detection |
+| Recommend lots of memory                          |                 |
+| Spark integration                                 |                 |
+
+
+
+## 🦄  Evaluation and Optimization
+
+
+
+##### Offline validation
+
+K-fold validation
+
+##### Online validation
+
+Canary Deployment
+
+A/B testing
+
+##### Algorithm Metrics
+
+Training - test
+
+Validation - validation
+
+#### Underfitting
+
+more data
+
+train longer
+
+#### Overfitting
+
+more data
+
+early stopping
+
+sprinkle in some noise
+
+regulate
+
+ensembles (bagging boosting)
+
+ditch some features
+
+##### Improve model accuracy
+
+Collect data
+
+feature processing
+
+model parameter tuning
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Part IV: ML implementation & operation  20%
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -1,0 +1,38 @@
+To finish off this chapter,
+we'll talk about streaming data collection
+and the exam tips.
+So, we first started talking about loading data into AWS
+and just understand how to get data from public data sets
+or in-house data sets and load it into AWS.
+Remember that we can load our data into S3
+by uploading it through the console, we can use the S3 API,
+or we can use the AWS Command Line Interface
+to get our data into S3.
+And remember, each of the services within the Kinesis family
+and how they are used to process and handle streaming data.
+Be sure you know what a shard is, what a data record is,
+and the retention period for shards.
+By default, the data retention is 24 hours,
+but we can extend that up to seven days.
+Make sure you know the difference between
+the Kinesis Producer Library,
+the Kinesis Client Library, and the Kinesis API.
+Remember that the Kinesis Producer Library
+abstracts some of the lower level commands
+that need to be done with the Kinesis API, but sometimes,
+there might be a delay in the processing of our data
+if we use the Kinesis Producer Library over the Kinesis API.
+And finally, for a given scenario,
+just know which streaming Kinesis service to use
+and how each service can fit into your streaming data needs.
+Now, be sure that you read and watch
+any of the additional resources that I've provided.
+If you're on a desktop computer, they'll be over here,
+and if you're on a mobile device, then they'll be down here.
+So, congratulations on finishing this chapter,
+so if you have any questions,
+then please post in the course forum.
+If not, then let's go ahead and move on to the next chapter.
+We'll talk about data preparation
+and everything involved with preparing our data
+for our machine learning models.

@@ -1895,7 +1895,12 @@ i.e. search engine; precision, quality and how relevant it is; completeness and 
 
 - Combination (harmonic mean) of precision and recall
 <img src="linuxacademy/f1.png" width="400" height="150">
-- 
+
+###### Macro Average F1 Score
+
+<img src="awsml_pic/macrof1.png" width="500" height="200">
+
+
 
 ##### ROC AUC
 
@@ -1913,7 +1918,7 @@ AUC: auc 面积越大，模型越好
 
 ##### i.e.Binary classification
 
-type I: alpha ~ 5%<br/>- type II: beta 1- power<br/>- power ~ 80% [依情况订]<br/><img src="awsml_pic/type12error.png" alt="type12error" style="zoom:50%;" /><img src="awsml_pic/binary.png" alt="binary"  /> <br> - specificity = TN/TN + FP <br> - FPR = 1- specificity = FP/ TN + FP<br>
+type I: alpha ~ 5%.     FP<br/> - type II: beta 1- power.     FN<br/>- power ~ 80% [依情况订]<br/><img src="awsml_pic/type12error.png" alt="type12error" style="zoom:50%;" /><img src="awsml_pic/binary.png" alt="binary"  /> <br> - specificity = TN/TN + FP <br> - FPR = 1- specificity = FP/ TN + FP<br>
 
 - precision：在我们判断是disease中有多少人是真的病了<br>- recall: 在有disease的样本量中，有多少我们可以正确的判断出来。<br>- accuracy: 正确判断的[overall]。<br>
 
