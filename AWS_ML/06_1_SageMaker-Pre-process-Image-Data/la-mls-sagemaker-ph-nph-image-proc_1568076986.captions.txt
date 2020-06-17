@@ -1,0 +1,32 @@
+So I'm just going to click run on that and whilst it's running we'll take a look at it. 
+
+We've got the Python image library imports, otherwise known affectionately as pillow and there's a couple of elements from that that we need to load. 
+
+We also have this path lib, because we've got to do some file manipulations of files on the drive 
+
+UUID on random and OS just standard Python things which we're using to help us along the way 
+
+be able to shop in an image, change the contrast of an image. Change the color sort of intensity of an image to rotate an image on to save an image back to the disk itself. 
+
+copy all of the images so the two sets of 60 images, the Pineheads and not Pineheads. So 120 images all up. We're going to copy them to the local drive of this Jupyter notebook and that's because we're not talking about a lot of files on even a relatively small Jupyter notebook instance is perfectly capable of during this transformation and we're using for this at that the actual AWS command line. So we could go ahead and we could crack open Boto3 the Python SDK and we could write a whole ton of code to bring over the images into locally. They probably wouldn't be that many lines, but we know how to do it in a single line from the command line. So you may as well do that and so code line with an exclamation mark at the beginning is all we need to be able to action something on the command line. 
+
+So we're going to say aws s3 cp which is to copy S3 objects and we want a recursively go through the input bucket, which is that bucket we looked at before, and we want to copy them all into our local folder and we want it to be in a local folder called images and then I just pipe everything to dev null so it doesn't spew its output all over the Jupyter notebook. 
+
+Then we're going to have some contrast changes and some sharpening changes and some color changes and these values here that are set essentially are our boundaries for a random choice which will be made at the time. So we're going to introduce some randomized some randomization into it and but I also have this thing called multiplier. 
+
+- So I actually decided to increase the amount of data that we had by running some of this code a number of times. 
+- 3， for each rotation of the image, it's going to go through and produce three different variations based on the different contrast sharpening and color. 
+
+
+So this is the process here the synthesizing process is going to change that for us. 
+this for loop is going to go through or both of the folders that we have so the Pineheads and the not Pineheads. 
+
+UUID name and that serves a couple of purposes. 
+
+create an LST file a list file which contains the definitions that we want so the ordering of the files as they're going to be consumed by the algorithm and the label for each of those files telling the training process whether it's Pinehead or not. 
+
+shuffled, 
+
+So now we have this sort of mishmash list of all of the images we have and that contains the path and inside of the path will denote whether it's a Pinehead or not. 
+
+Now what I need to do is to split that all images list out into two different sets and I want to have 3/4 of them in my training set on 1/4 of them in my validation set. 

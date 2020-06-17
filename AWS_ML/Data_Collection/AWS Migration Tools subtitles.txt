@@ -1,0 +1,218 @@
+In the last lecture,
+we talked about different places
+that we can have our data on AWS
+or stored within AWS
+and in this lecture, we'll talk about different
+migration tools that we can use to help us get our data
+into S3 so it's ready for our machine learning process.
+Now, if our data is already in S3 then we're good to go
+but what if it's not in S3.
+What if it's in another service like RDS or DynamoDB?
+We'll talk about different migration tools
+that can help us move our data from one service to another.
+Now, remember that there's no one size fits all service
+to get data into S3,
+every data source can vary in process
+and depending on many different factors
+and efficiency
+and our source
+and destination data types, the structure of our data
+and the expected output of our data.
+So, the different tools that I'll cover
+throughout this lecture will help you
+get a better understanding if which type of
+migration tool is best for your of situation at hand
+and you might have questions on the exam that ask you
+if you have data in one location,
+what's the best tool or strategy to use
+to get it to another location?
+So, the first migration tool that I'll discuss
+is 'Data Pipeline'.
+Now, data pipeline allows you to process
+and move data between different AWS compute
+and storage services
+and it also allows you to transfer data from
+on-premise data sources onto AWS.
+What you can do is, set up input from different data sources
+like DynamoDB, RDS
+and Redshift, set up a data pipeline
+and then output that data onto S3.
+Now, data pipeline offers several built in activity objects
+that allow us to copy data using a
+few different activity types.
+Things like 'SqlActivity' which allows us to specify
+sequel queries
+and things like 'RedshiftCopy'
+and 'ShellCommandActivity'.
+We can use these different activities
+and specify which type of data source that we have
+and how we want to migrate our data.
+We can set up these pipelines to run
+on some schedule or to run on demand.
+Now, data pipeline can also be used as a transformation tool
+but in this context, we're just talking about
+moving data from one location to another
+and within data pipeline, you are able to
+manage the pipeline execution,
+the resources that actually transfer the data.
+So, think EC2 instances
+and any retry logic
+and failure notifications if some type of transfer
+is not successful.
+Now, within the AWS console,
+they have several built in templates
+that you can use when creating your pipeline
+and you can do things like move data to
+and from Dynamo to S3,
+RDS to S3, Redshift to S3 et cetera.
+You can also provide your own templates for
+custom pipelines that you build yourself.
+Now, the next tool that we'll discuss
+as a migration tool is 'DMS'
+or 'Database Migration Service'
+and this service allows you to migrate data
+between different database platforms.
+Now, this tool is generally used for transferring data
+between two different relational databases
+but you can also output the results onto S3.
+Now, DMS supports homogenous
+and heterogeneous migrations meaning
+if you wanted to transfer data from MySQL to MySQL
+this would be considered homogenous
+and you're also able to transfer data from things like
+let's say SQL Server to S3
+or SQL Server to MySQL,
+this would be considered a heterogeneous migration.
+So, think about the different database services like
+on-premise databases, databases on EC2
+or databases on RDS,
+we can use the DMS service to transfer our data onto S3.
+Now, DMS doesn't support, really, any transformations
+other than possibly a column name change
+or something along those lines
+but traditionally you wouldn't use this
+as a transformation tool.
+What you can do is, set up a source
+and point for any of these types of sources
+and have the data output on any of the target end points
+and as mentioned earlier,
+it supports heterogeneous
+and homogenous migrations.
+So, DMS is a pretty great tool for relational databases
+but it also allows you to output your data onto S3
+if needed.
+Now, the main difference
+between data pipeline, that we just discussed,
+and DMS, is that DMS handles all the heavy lifting for you
+when it comes to resources that
+are required to transfer the data.
+Data pipeline allows you to set up your resources as needed
+and handles the transferring of data in more of a custom way
+and last but not least, we'll talk about using 'AWS Glue'
+as a migration service.
+Now, AWS Glue is a fully managed  v service
+which stands for 'Extract, Transform and Load'
+but we're mainly going to focus on the loading portion
+since we're talking about migrating data.
+Now, we're going to go much more in depth
+on AWS Glue in a later chapter,
+so, we'll touch it at a high level here
+and we'll talk about how we can load data into S3.
+Now, the parts that make it possible
+to migrate data onto S3 is that
+when we use AWS Glue, it creates tables within
+a data catalog that are, kind of, like a skeleton
+for our data set.
+It's essentially the metadata
+and data types
+and attribute types that make up our data sets.
+Now, to create these tables within AWS Glue,
+we set up a crawler that essentially goes out,
+looks at the data
+and it determines the schema associated with that data.
+Now, within these crawlers
+there are several different classifiers that
+work at a hierarchy level
+and go down the line to try to infer
+what type of data it is or what type of schema it is.
+So, even if you have some unstructured data or
+possibly schema less data, the built in classifiers that
+AWS Glue offers, helps us build a skeleton
+of some type of schema associated with our data.
+Now, if a classifier can't recognize the data
+or it's not a hundred per cent certain,
+the crawler invokes the next classifier
+and determines whether it can recognize the data.
+You can think about these classifiers as
+being similar to a regular expression
+that can, kind of, go along
+and try to find some type of schema or
+some type of structure in your data.
+You can also create custom classifiers
+that specifically lay out what your data looks like.
+So, what we can do with AWS Glue is,
+take data from any of these input data sources
+and set up a crawler
+and classifiers to try to define the schema if possible
+and then output the data into other AWS services
+like Athena, EMR, S3 and Redshift.
+Now, don't worry, we'll cover Athena
+and EMR in the next lecture
+but for now just know that we can use
+AWS Glue to load our data from one data source to another
+and during the loading process, we can change
+the output format to any of these formats
+to get it ready for our machine learning model.
+So, let's take a look at a few scenarios
+where we have data in one location
+and we're trying to get it into S3,
+let's see if we can choose the right approach.
+Now, in our first scenario we have some data
+that's in a PostgreSQL RDS instance
+and we need to get that training data onto S3.
+Well, we can use AWS Data Pipeline as our migration tool
+and specify a SqlActivity query that places the
+output data into S3.
+So, let's say we have some unstructured log files in S3.
+Well, what we can use is AWS Glue
+to create custom classifiers if the built in classifiers
+can't recognize a schema
+and output the results into S3 for instance
+in CSV format.
+Now, for the next example,
+let's say we have some clustered Redshift data,
+well, we have a couple of different options.
+We can use AWS Data Pipeline
+and the unload command to return the results of a query
+to a CSV file in S3
+or we can use AWS Glue
+to create a data catalog describing the data
+and load it into S3
+and finally the scenario of having an
+on-premise MySQL instance with training data
+that we need to get into S3, well,
+we can use the AWS Database Migration Service
+to load the data in CSV format onto S3.
+As mentioned earlier, there's no one size fits all for
+choosing a migration tool to get your data from
+one AWS service to another.
+Each tool has their pros and cons
+and it really just depends on how fast
+you want your data to be migrated
+and if cost is a factor
+and whether or not you need some type of
+transformation done to your data.
+Now, we'll talk about data preparation
+and transformation in a later chapter,
+where we'll discuss different tools that we can use
+to help us transform our data
+but for now these are just some different migration tools
+that help us get data from one service to another.
+Now, as mentioned earlier, you may get questions
+on the exam that ask you how to migrate data
+from one service to another
+and so I hope these tools give you a better understanding
+of what type of migration that you can do.
+So, if you have any questions
+then please post on the course form if not,
+then let's move on to the next lecture.

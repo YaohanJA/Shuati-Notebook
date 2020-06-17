@@ -1,0 +1,182 @@
+So far, we've covered different areas
+of why data collection is so important.
+We've also talked about some different terminology
+that we'll use throughout this course.
+And finally, we're at the point
+where we'll talk about some different AWS Services
+that we can use to store our data
+for our machine learning problems.
+Now, the next few lectures cover different ways
+on how to get our data into AWS
+but at the core of it all, we're really just trying
+to get our data into Amazon S3,
+so if you already have an associate level certification
+you should already be familiar with this service
+and all the other services that we'll discuss
+but we'll briefly discuss what Amazon S3 is
+and the other services throughout this lecture.
+Amazon Simple Storage Service, or S3,
+provides us a way for unlimited data storage that provides
+object based storage for any type of data.
+And this essentially is the go-to place
+for storing our machine learning data.
+And the reason for this is because the core services
+that AWS offers for machine learning integrates
+directly with S3 and makes it super easy
+to read and stream our input and testing data
+from S3 onto these machine learning services.
+It also uses S3 to output the results of anything
+that we create within our machine learning process.
+So let's continue and talk about a few other features of S3.
+S3 objects or files can be from zero bytes to five terabytes
+and there is unlimited storage.
+And what I mean by unlimited storage is AWS monitors
+how much data is on S3 and if it looks like they're hitting
+a threshold or getting close to hitting a threshold
+they'll provision more resources so there's enough space
+to store all of your data.
+Now, files and objects are stored into buckets
+which are similar to folders
+and S3 has a universal namespace, meaning that the names
+of your buckets are unique globally,
+meaning that you cannot have the same bucket name
+as one of my bucket names.
+So, this what an example endpoint of an S3 bucket
+would look like.
+It has S3-the region.amazon.aws.com/thebucketname
+so in our case the bucket name would be machinelearningdata.
+Now, AWS supports two different ways to address endpoints
+with path style like I just showed you
+or virtual hosted style.
+Recently announced, the path style model
+will actually end in September 2020, so from this point
+forward, our bucket names are going to look like this.
+This is the virtual hosted style, and what it looks like
+is the bucket name.S3.amazonaws.com,
+so this is what the new end points
+or the virtual hosted end points
+are going to look like moving forward.
+So the next question is, well how do we get data into S3?
+Well, if your data already into S3 then you're good to go.
+But if you need to upload data in to S3
+there's a few different ways you can do this.
+The first and most straightforward way is to just upload
+it through the console.
+You can simply click the upload button and upload
+your data sets or your objects manually.
+You can also upload data sets or objects into S3
+using many different SDK's that AWS offers
+to upload the files via code or you can use
+a command line interface to upload your data into S3.
+The next type of data store that we'll discuss is RDS
+which is Amazon's Relational Database Service
+and this is for relational databases
+and we discussed earlier how we can have structured data
+with a defined schema within our relational databases.
+Now, RDS has the following engines that you're allowed
+to choose from to create
+a fully managed relational database.
+As mentioned earlier, relational databases
+are for application data stores that need
+transactional style databases.
+Now in the console we can create an RDS and since choose
+our engine type, set all the parameters and then create
+a relational database right in the AWS console.
+The next service we'll talk about is Dynamo DB
+which is a no sequel data store for non-relational databases
+that is used to store key value pairs.
+Now, this service is best for schemaless data
+and unstructured or semi-structured data
+and an example of what some data in Dynamo DB
+might look like is the following.
+Here we have some data about Star Wars characters
+and it's semi-structured data in JSON format.
+Now, all of this data is considered the table in Dynamo DB
+and the actual table name is defined as characters.
+Now within that table we have different items
+so we have two items here, and then within those items
+we have key and value pairs.
+So, a key value would be weapon and the value for that key
+would be lightsaber, and the combination
+of a key value pair is going to make up an attribute
+and within the AWS console it gives us a user interface
+where we're able to interact with our NoSQL database.
+Now, the next type of data store that I'd like to discuss
+is Amazon Redshift, and if you've never seen
+Scott's SCA Pro Redshift lecture,
+you should take a look at it because he's got
+quite a theory on where the name of Redshift came from
+so check that out if you get a chance.
+Now, Amazon Redshift is a fully managed clustered petabyte
+data warehousing solution that congregates data
+from other data sources like S3, Dynamo DB, and more,
+and it allows you to store mass amounts
+of relational or non-relational semi-structured
+or structured data to create a data warehousing solution.
+And once your data is in Redshift
+you can use SQL client tools or business intelligence tools,
+or other analytics tools
+to query that data and find out important information
+about your data warehouse.
+And within the console you can launch your Amazon Redshift
+cluster, select the number of nodes that you want,
+their storage size, and other parameters to create
+your data warehousing solution.
+Another cool feature within Redshift is a tool
+called Redshift Spectrum, which allows you to query
+your Redshift cluster that has sources of S3 data.
+So essentially, it allows you to query your S3 data.
+You can then use tools like QuickSight to create charts
+and graphs to actually visualize that data.
+Now we'll talk more about QuickSight in a later chapter
+but for now just understand
+that it's a business intelligence tool.
+Now, the next data store that I want to discuss
+is Amazon Timestream, and this was actually announced
+at re:Invent 2018 and this will most likely
+not be on the exam, but it's a good idea to know about.
+Now, in a earlier lecture we talked about time series data
+and this is data that's from things like IOT devices,
+IT systems, smart industrial machines,
+things like server logs, or any other time series data,
+so think about stock market prices.
+Amazon Timestream is a fully managed time series
+database service, and it allows you to plug in
+business intelligence tools
+and run SQL like queries on your time series data.
+Now, like I said, this will most likely not be on the exam,
+but it's good to know for completeness.
+And the last data store that we'll discuss is Document DB.
+Now, this was announced at the beginning of 2019
+and will also most likely not be on the exam
+but essentially all Document DB is,
+is a place to migrate your mongoDB data.
+It provides better performance and scalability
+than your traditional mongoDB instances
+that are running on something like EC2 or on Premise.
+So, like I said, time series and Document DB
+will most likely not be on the exam
+but they're good to know for completeness.
+Now, that's the end of this lecture.
+Now, I understand that I touched on many of these services
+at a very high level and didn't go too in depth.
+This is because that many of these services
+are only touched at a high level on the exam
+and also you should have a strong understanding
+of the in depth of each one of these services
+from an associate level certification.
+So if you want to go more in depth and get a deep dive
+into any of these services, then check out
+the Solution Architect Associate course,
+or the Developer Associate course offered on the platform.
+These courses will definitely go more in depth and provide
+a little extra layer of knowledge for these services.
+So remember, we're trying to get our data on to S3
+and even if your data is in any of these other data stores
+then we can use different migration tools to help us migrate
+that data from one data store to S3.
+So in the next lecture we'll start talking
+about different migration tools that help us do just that.
+If you have any questions then please post
+in the course forum.
+If not, then lets move on to the next lecture.

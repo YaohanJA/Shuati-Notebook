@@ -29,7 +29,9 @@
 
   
 ## Part I: Data engineering - 20%
-### 1，Create data repositories for ML
+### 🦄Data Collection
+
+#### ✅ Data stores
 
 数据形式[structured, unstruced] -> a centralized repository -> Data Lake
 
@@ -39,8 +41,175 @@ AWS Lake Formation
 
 Amason S3 storage option for ds processing on AWS
 
+Data warehouse - ETL 
 
-### 2，Identify and implement a data-ingestion solution
+##### **S3**
+
+- object based storage for any type of data.
+
+- Upload: 
+  - console
+  - different SDK's that AWS offers to upload the files via code or you can use a command line interface to upload your data into S3.
+
+##### RDS
+
+##### Dynamo DB
+
+no SQL data store for non-relational databases that is used to store key value pairs.
+
+- Table 
+  - Key : Value -> attribute
+
+##### Redshift
+
+- fully managed clustered petabyte data warehousing solution that congregates data from other data sources like S3, Dynamo DB, and more
+- SQL client tools or business intelligence tools, or other analytics tools to query that data and find out important information about your data warehouse.
+
+###### Redshift spectrum
+
+- allows you to query Redshift cluster that has sources of S3 data.
+
+S3 - > redshift spectrum -> quicksight
+
+##### Amazon Timestream
+
+fully managed time series
+database service, and it allows you to plug in
+business intelligence tools
+and run SQL like queries on your time series data.
+
+##### Document DB
+
+ migrate your mongoDB data.
+
+#### ✅ Data Migration tools
+
+##### Data Pipeline
+
+- Built-in activities / template
+<img src="awsml_pic/datapipeline.png" width="500" height="250"> 
+
+##### DMS
+<img src="awsml_pic/dms.png" width="500" height="250">
+
+Database Migration Service
+- migrate data between different database platforms.
+- for transferring data between two different relational databases but you can also output the results onto S3.
+- no transformation except for changing column name
+
+##### Data pipeline VS DMS
+
+- DMS handles all the heavy lifting for you when it comes to resources that are required to transfer the data.
+- Data pipeline allows you to set up your resources as needed and handles the transferring of data in more of a custom way
+
+##### Glue
+
+<img src="awsml_pic/glue.png" width="500" height="250">
+
+- ETL
+
+- try to find some type of schema or some type of structure in your data.
+
+- can change the output format to any of these formats
+
+<img src="awsml_pic/migration.png" width="500" height="250">
+
+#### ✅ Data Helper tools
+
+##### EMR
+
+- fully managed Hadoop cluster eco-system that runs on multiple EC2 instances.
+
+- we could use EMR to store mass amounts of files in a distributed file system to use as our input or training data.
+
+##### Amazon Athena
+
+- serverless platform that allows you to run sequel queries on your S3 data.
+- set up a table within our data catalog within AWS Glue
+  and use Athena to query our S3 data.
+
+##### Redshift Spectrum and Athena?
+
+<img src="awsml_pic/RedshiftSpectrumandAthena.png" width="500" height="200">
+
+
+
+https://www.youtube.com/watch?v=QZ4LAZCbsrQ
+
+https://www.youtube.com/watch?v=v5lkNHib7bw
+
+https://aws.amazon.com/blogs/big-data/build-a-data-lake-foundation-with-aws-glue-and-amazon-s3/
+
+### 🦄Streaming Data Collection
+
+#### ✅ Kinesis Data Streams
+
+<img src="awsml_pic/kinesis.png" width="500" height="250">
+
+<u>Data Producers -> Kinesis streams</u> 
+
+- to transfer, or load, or stream that data into AWS.
+
+- **shards** - contains all of the streaming data that we want to load into AWS.
+
+  > - Data Record
+  >   - partition key
+  >   - sequence number
+  >   - data blob (payload up to 1 mb)
+  > - each shard consists of a sequence of data records, can be ingested at 1000 records per second.
+  > - default limit of shards is 500, but we can request increases to unlimited shards.
+  > -  transient data store - 24 hours - 7 days
+
+<u>-> data consumers</u> 
+
+- **Kinesis Data Analytics** to run real time SQL queries on our streaming data.
+
+Interaction: 
+
+- Kinesis producer library
+  - abstracts some of the lower level commands - higher efficiencies and better performance.
+  - Delay
+  - The KPL must be installed as a Java application before it can be used with your Kinesis Data Streams.
+- Kinesis client library
+- Kinesis API (AWS SDK)
+
+> PutRecords is a synchronous send function, so it must be used for the critical events. 
+>
+> KPL implements an asynchronous send function, incur an additional processing delay of up to RecordMaxBufferedTime within the library (user-configurable). 
+
+
+
+#### ✅ Kinesis Data Firehose
+
+<img src="awsml_pic/firehose.png" width="500" height="250">
+
+
+
+#### ✅ Kinesis Video Streams
+
+<img src="awsml_pic/videostream.png" width="500" height="250">
+
+#### ✅ Kinesis Data Analytics
+
+<img src="awsml_pic/dataanalytics1.png" width="500" height="250">
+
+
+
+| Kinesis Data <br />Streams                                   | Kinesis Data <br />Firehose                                  | Kinesis Video Streams                                       | Kinesis Data Analytics                                       |
+| ------------------------------------------------------------ | ------------------------------------------------------------ | ----------------------------------------------------------- | ------------------------------------------------------------ |
+| <img src="awsml_pic/kinesis1.png" width="190" height="150">  | <img src="awsml_pic/kinesis2.png" width="170" height="150">  | <img src="awsml_pic/kinesis3.png" width="280" height="130"> | <img src="awsml_pic/kinesis4.png" width="280" height="160">  |
+| Process and evaluate logs immediately<br />Real-time data analytics | Stream and store data from devices<br />Create ETL jobs on streaming data |                                                             | Responsive real-time analytics<br />Stream ETL jobs          |
+| Shards. <br />Data retention. [24 hours - 7 days]            | directly output streaming data to s3                         |                                                             | Kinesis Data Analytics gets its input streaming data from Kinesis Data Streams or Kinesis Data Firehose. |
+| cannot write data directly to S3                             |                                                              |                                                             | cannot write data directly to S3                             |
+
+<img src="awsml_pic/kinesis5.png" width="500" height="250">
+
+
+
+
+
+
+
 ### 3，Identify and implement a data-transformation solution
 
   
@@ -1864,3 +2033,46 @@ Transcribe
 bootstrap scripts that you can use on EC2 instances.
 
 can run when you create your Jupyter notebook instances
+
+
+
+## SageMaker Algorithms - Architecture
+
+Amazon ECS
+
+- Amazon Web services managed Docker environment
+- ML Docker Containers
+  - container registry
+  - Built-in algorithm
+  - DL containers
+  - Marketplace
+- 
+
+
+
+encapsulate
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
