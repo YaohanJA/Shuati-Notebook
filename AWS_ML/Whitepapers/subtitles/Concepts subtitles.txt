@@ -1,0 +1,231 @@
+Here are some algorithm concepts
+that'll help us with the rest of the chapter.
+So first and foremost, what is an algorithm?
+Well, the official definition is,
+it's an unambiguous specification
+of how to solve a class of problems.
+The key part here is unambiguous.
+And let's see, what does that mean?
+Well, as an example,
+let's compare an algorithm to a heuristic.
+Now an algorithm is a set of steps
+to solve a specific problem.
+Think about it like a recipe or a set of instructions,
+that's intended to have a very repeatable outcome.
+So if I do a certain thing, I know that I'm going to get
+another certain thing as an output.
+Now, in contrast, a heuristic is kind of a mental shortcut
+or kind of a rule of thumb,
+it provides some guidance on doing something,
+but it doesn't necessarily guarantee a consistent outcome.
+And how I like to think about the difference here is,
+think of an algorithm as like a set of troubleshooting steps
+that should narrow down the possibilities
+to the correct possibility,
+because you always want to correct outcome.
+And in some cases, if we're troubleshooting for example,
+an electrical problem, there's generally a set of steps
+that you would go through to figure out
+where the fault is in the circuitry.
+Now, in contrast to that,
+think of a heuristic as an educated guess.
+Let's say you try a new pizza place based on the fact
+that you enjoy pizza, and it could be a good pizza
+or it could be a bad pizza, but you really don't know.
+Now you're generally not gonna go through
+the exhaustive process of trying to understand
+how their dough is made, where they source their ingredients
+and match them up systematically
+with other pizza places that you like.
+You're willing to take a chance here.
+And we use heuristics all the time in day-to-day life,
+way more than we do algorithms.
+So why do we use algorithms in machine learning?
+Well, we want to drive out as much bias as we can.
+Now, because I said heuristics are kind of a rule of thumb,
+that inherently has some bias built into it,
+because it's based on your prior experiences
+or some assumptions that you've mentally made.
+In contrast, computers can't make those assumptions
+because they don't necessarily have that intuition
+that is required by a heuristic.
+As you recall, an algorithm is this finite process
+with known inputs and expected outputs.
+And we can use this in machine learning
+because our goal is we want repeatable generalizations.
+Now, unfortunately, there's many ways that bias
+can still creep in to our machine learning process,
+we can introduce bias in the data
+that we select for training or testing.
+Or maybe we unintentionally exclude
+an important chunk of sample data,
+then our model is just unaware of that excluded data.
+And this is a real current day problem with machine learning
+in identifying good data for training.
+Additionally, we can introduce bias
+in how we design our feedback loop.
+We might make an assumption using a heuristic
+that we're most likely to see one type of results,
+and we set up a measurement system or a feedback loop
+to watch for this specific set of results.
+In fact, we might skew the model to produce outcomes
+that fulfill our assumption in the first place.
+So that's a danger that we have to watch out for
+when we're designing our model.
+Now, you might recall, I displayed a chart like this
+in a few lectures earlier, but I've augmented it a bit here.
+And so, I wanted to go through it at this point.
+So we have three general types of learning.
+We have supervised learning, unsupervised learning,
+and reinforcement learning, and we're gonna go through
+all these in more detail later.
+But for starters, I just wanted to introduce the concept,
+and let you know that they're a little bit different
+in how we can think about them.
+First and foremost, when it comes to training,
+supervised learning has a training data set
+and normally has a testing data set
+that we evaluate our model on.
+Now, unsupervised learning,
+really doesn't have this formal training process.
+Well, I probably shouldn't say
+that there is no training in unsupervised learning,
+rather, kind of think about it like on-the-job training.
+So unsupervised learning gets its data
+and it has to figure out the relationships
+and the correlations as it goes through the data.
+We haven't provided an unsupervised learning model
+with examples of what is correct and what is incorrect.
+Now, reinforcement learning is all about
+how do we maximize the reward.
+And as you might guess,
+we want to provide reinforcement to the model
+in the way of increased reward for doing the right things.
+Now, in an earlier chapter, I also introduced this concept
+of discrete processes versus continuous processes.
+And examples of discrete processes for supervised learning
+may be a classification.
+And why is this discrete?
+Because we're trying to classify
+across N number items,
+we have a known quantity that we're trying to classify,
+it could be a binary classification
+where we're trying to decide between one or the other
+or it could be a multi-class classification,
+where we're trying to decide, does it belong
+to one of these five different classifications?
+Now, for discrete processes in unsupervised learning,
+an example of this is clustering.
+Let's say we have a stack of data,
+we feed it into our algorithm,
+and we ask the algorithm to break it up into five clusters.
+And so, the algorithm is gonna do its best to try
+to identify the five different general clusters of the data
+and group that data into one of those five clusters.
+Now, for discrete processes in reinforcement learning,
+think about that maybe as a simulation-based optimization.
+We create a simulated world
+and we run our agent through that world,
+rewarding our agent for doing the right things
+and that develops what we call a policy.
+And we'll talk more about this later.
+Then we have continuous processes,
+and continuous processes in supervised learning,
+an example of this may be a regression.
+So the outcome doesn't have to be a specific quantity,
+or grouping, it can be along this continuum.
+An example of a continuous process in supervised learning,
+might be regression.
+Let's say we have a model that tries to predict
+the fair market value of a used automobile.
+And so, we put in all this data,
+and then the output could be anywhere from zero euro
+all the way up to, really, no limit
+depending on what sort of car we're talking about.
+So we're not choosing from an N number of quantity
+or a known number of quantity, we're allowing the algorithm
+to choose whatever the right value is
+based on its model calculating that.
+An example of a continuous process in unsupervised learning
+might be reduction in dimensionality.
+And what this means is maybe we just have too much noise
+in our data, the values are too extreme,
+or they're creating too much amplification,
+that it's overwhelming the real signal in the data.
+And so, we can apply some strategies
+to try to minimize that noise or reduce that noise
+so that we can get a better signal or a stronger signal.
+An example of a continuous process in reinforcement learning
+are autonomous vehicles.
+That vehicle is out there in the real world
+and it's having to make instantaneous decisions
+in a continuous basis.
+Now, one of the things that I struggled with
+when I first started my machine learning journey
+is trying to figure out and remember the differences
+between supervised and unsupervised.
+Reinforcement learning kind of made sense to me but
+the two supervised ones didn't,
+so I'm gonna try and explain it in a way that has helped me.
+So for supervised learning, I kind of think of it like
+a teacher or parent supervises the learning process
+by providing model examples and feedback on quizzes.
+So you can say that in a sense,
+I am supervising your learning
+by going through this content, showing examples,
+and then providing feedback on quiz questions.
+Now, in contrast, unsupervised learning,
+I like to think about it as if I'm out in the woods,
+and I just get dropped there,
+and I have to figure out what's going on.
+I have to learn the environment,
+I have to decide what works and what doesn't work,
+and I have to rely on alternative methods
+other than prior experience.
+And let's say for example, I'm in the woods
+and I'm starving, and I'm foraging for mushrooms,
+and I find a mushroom that is edible.
+Well, I can then use that experience
+to look for other mushrooms that look similar,
+and I can maybe eat those.
+It would be bad if I ate a not edible mushroom,
+and I would hopefully learn from that experience as well.
+But nobody necessarily told me or taught me
+or showed me through examples what a edible mushroom
+or a poisonous mushroom look like.
+That's kind of a weird example
+but I think you get the idea.
+(dramatic music)
+Now, reinforcement learning is the process
+with which we create a reward function
+to reinforce the desired behavior.
+A good example of this is DeepRacer,
+where we can get this radio controlled car
+that has a little PC brain on it,
+and we can build a reward function
+that rewards it for staying on the track,
+and gives it no reward if it steers off the track.
+So over time, the model is going to optimize itself
+to do the things that we reward it to do.
+Now, as far as the algorithms that we have access to
+stage maker has a lot of algorithms built into it,
+and we're gonna cover those in this chapter.
+Now, you can also purchase algorithms
+from the AWS Marketplace.
+There's a lot of smart people out there
+that have built algorithms to do specific things,
+and they're trying to monetize those algorithms
+by selling 'em through the AWS Marketplace.
+Maybe even you have a good idea for an algorithm,
+you can work on it, and then when you think
+you have it perfected, you can put it in the AWS Marketplace
+and maybe make some money out of it.
+Now, you can also create your own algorithm,
+and you do that by building a special Docker image
+containing that algorithm and containing some other stuff.
+We'll talk about that later.
+For the time being just know that there's three general ways
+that we have to access algorithms.
+We can use the built-in ones,
+we can buy it from the marketplace,
+or we can build our own.

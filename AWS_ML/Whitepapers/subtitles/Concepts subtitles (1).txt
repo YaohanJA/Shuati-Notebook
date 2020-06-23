@@ -1,0 +1,205 @@
+I often say that laptop stickers are like
+tattoos for people with commitment issues.
+Case and point, here's my laptop.
+I don't happen to have any tattoos, but I certainly
+have some laptop stickers and it fairly well describes me
+and the things that I like in life.
+We have the A Cloud Guru logo, which is probably
+pretty obvious.
+We have the Portland Timbers, which is my favorite
+soccer team, or football team, depending on where you're at.
+And these two characters are from things that make me
+laugh a lot and that's always a good thing.
+Bonus points if you can call out where they're from.
+Then we have these two guys and I specifically
+wanted to call out these two guys, because in a past course
+I proclaimed my childhood obsession with video games,
+specifically arcade games, the kind you had to go to an
+arcade, or maybe a rollerskating rink and pump quarters
+into these big machines in cabinets.
+And one of my favorites, and I had many, was Space Invaders.
+Now, interestingly, Space Invaders doesn't contain any
+real AI, rather it's timer based.
+The Space Invaders march back and forth faster and faster
+as you pick off individual Space Invaders.
+Now, there's a website called, Computer Archeology,
+which I find pretty fascinating and it decomposes these
+classic games to figure out how they work underneath.
+Now, they've done a very thorough job of basically
+reverse engineering and tearing apart the logic
+of the game and even finding bugs and hidden messages
+inside the machine language.
+Now, back in 2013 researches over at DeepMind Technologies
+created a reinforcement learning project that not only
+learned how to play some of these classic games,
+but they soon learned to totally dominate 'em.
+Beamrider, Enduro, Seaquest and Space Invaders
+were among several that DeepMind mastered
+and this research lead to DeepMind being acquired
+by Google in 2014 and it also lead to the creation of
+AlphaGo.
+Now, AlphaGO is an artificial intelligence engine
+that plays the Chinese game of Go.
+And the system and its attempt to beat a Go master
+was very dramatically captured in the 2017 movie,
+"AlphaGo" that's available on Netflix and some other
+streaming services, depending on your geography.
+Now, you too can build your own reinforcement learning
+models to try to defeat some of these classic Atari games,
+using something called, OpenAI Gym.
+Now, the OpenAI Gym is a environment that you can exercise
+your reinforcement learning algorithms to try to figure out
+if they're going to be able to solve for these classic
+Atari games and oh, here are the decals on my Chromebook
+and yep, DeepMind mastered that game too.
+So, DeepMind, or your own algorithm playing an an Atari game
+is an example of an online Use case and so,
+when we're trying to design how we want our algorithm
+to be released into the world, we have to figure out,
+are we talking about an online scenario,
+or an offline scenario?
+Now, Online Usage means that we need to make inferences
+on demand as the model is called.
+Offline on the other had means that we can run data sets
+through our model in more of a batch scenario.
+Now, if you'll recall from our algorithms discussions,
+some algorithms need the entire data set to be in memory
+for them to do their job and that's a case where we would
+use an offline mode, because there's really no other
+way to do that in an online fashion, so online usage
+is if we're trying to get our model to solve for a
+real time fraud detection, or maybe solve for
+an Atari 2600 game.
+Offline models often are used when we need to have all that
+data in memory, we need to index all the data
+and then perform some sort of forecasting perhaps.
+Now, we have different types of deployments
+and I like to break 'em down into three basic types.
+We have what I call, the Big Bang and that means that
+at some point in time we're gonna do a full cut over
+from the old to the new.
+This is a common deployment strategy in a lot of
+maybe ERP system deployments, where you really can't run
+both systems at the same time and it has the highest level
+of risk, an alternative may be a Phased Rollout,
+where we're able to gradually deploy the new system
+and decommission the old system.
+Now, additionally, we have a third option called,
+Parallel Adoption, and this is where we're actually running
+both systems simultaneously and generally this option
+takes the most time and on the service it may have
+the lowest amount of risk, but sometimes Parallel Adoption
+has a higher risk, because we're running multiple systems,
+or multiple processes at the same time and that could lead
+to errors, or data consistency issues.
+Now, in all these cases the cost is simply just a function
+of the risk and the time and that cost function is gonna be
+different for different situations.
+What we're gonna be talking about with regard to
+machine learning models, is a Phased Rollout approach.
+This is one of the most common ways to deploy
+machine learning services
+and we'll see some example of that.
+The first example is a Rolling Deployment and rather than
+upgraded all the resources at once, like in a Big Bang,
+we're gonna upgrade things one by one,
+to try to minimize downtime.
+Here's an example where we have a load balancer
+and then we have the algorithms behind that load balancer
+and right now they're all on version 1.0
+and then we'll start upgrading to the other servers
+and you can see one of the risks here is that we have
+multiple versions in production at the same time.
+Eventually we're gonna fully deploy and then we're
+gonna be all up on version 2.0.
+That's a Rolling Deployment.
+Now, we've already talked about Canary Deployments.
+It's just deploying a new version into production
+to see what happens.
+An example of this is we could use Route 53 to route
+99 percent of the traffic to a current version model
+that we have and then one percent to the Canary version,
+or the new version and then analyze the feedback
+that we get through Cloud Watch,
+to see if there's any errors.
+A variation of Canary testing is something called,
+A/B Testing.
+It's where we can deploy a new version into production
+and set a specific amount of inbound traffic to use
+that new version and then we record the follow on impacts
+of that new version.
+And then maybe once enough data has been collected,
+we can decide whether or not to fully deploy it.
+So, we can use a similar technique that we did
+with Route 53, using SageMaker Hosting to channel a
+certain percentage of traffic to one variant, or another
+of our model and then we would extract the metrics there
+and try do decide whether variant one, or variant two
+was in fact doing a better job and then we can feed that
+information back into any sort of adjustments, or tweaks
+that we want to make for variant two.
+A/B Testing is very common in E-Commerce scenarios,
+where you want to evaluate whether the activities
+that you did on your website have any impact on the
+customer's willingness to purchase a product,
+then maybe in this case our model is trying to suggest
+other products that that customer might like.
+We can deploy that in an A/B Testing scenario
+and then evaluate how often that customer purchases
+the products that we recommend.
+Now, I did wanna cover some CI and CD concepts
+here as well, because you're likely going to hear them
+at some time.
+Continuous Integration just means that we're gonna be
+merging that code back into the main branch as frequently
+as possible and ideally we're gonna have some
+automated testing as we go.
+Continuous Delivery means that we have automated our
+release process up to the point where we're ready to
+deploy it, but that deployment still requires some human
+intervention.
+In contrast to your Continuous Deployment,
+means that we've implemented enough automated testing,
+such that we have a pretty high degree of confidence in
+our code when it's ready to deploy and in fact,
+it just automatically deploys when it passes the tests
+without any human intervention required.
+How I like to keep these things straight,
+is that I imagine Continuous Integration like we're
+merging onto a busy freeway.
+We're trying to integrate into the traffic flow.
+For Continuous Delivery, I can remember that concept,
+because I can order the delivery of a pizza at the push
+of a button on my phone.
+The pizza's not gonna just show up, I have to initiate
+that pizza release if you will.
+And for Continuous Deployment, when the alien robot invasion
+comes, they will deploy armies of robots with complete
+automation, just like in Continuous Deployment.
+Here's a typical development lifecycle process.
+Now, back in the olden days, when we didn't really have
+very much automation in the process, it involved a human
+doing unit testing, integration testing, acceptance testing,
+deployment to production, and finally, maybe
+some smoke testing once we did deploy to production.
+Now, Continuous Integration means that we're going to get
+the latest version from the repo and we're gonna commit it
+several times during the day and with each check in,
+we're gonna have some sort of integration test
+that makes sure it's not gonna break things.
+For Continuous Delivery we'd still use the same process,
+but maybe we're going to be able to release this
+once per day, because all the test automation says
+that our code is good.
+Ultimately, if we get so far as Continuous Deployment
+as soon as all the tests are passed, then we can
+automatically deploy that into production
+and these concepts absolutely map over to how we
+might wanna deploy our machine learning models.
+We can decide if we want to do it more of a Continuous
+Delivery method, or Continuous Deployment method,
+or maybe we just wanna do everything manual,
+but it is important that you understand these concepts,
+because they're gonna come up not only in deploying
+machine learning models, but also in other development
+scenarios as well.

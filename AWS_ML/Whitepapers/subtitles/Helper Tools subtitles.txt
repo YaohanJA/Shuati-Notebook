@@ -1,0 +1,419 @@
+Now that we've learned
+different techniques to use to prepare our data
+I want to talk about some of the tools
+within AWS that we can use
+to actually apply these techniques
+and actually prepare our data.
+Now, the first and probably most important tool
+that we can use during the data preparation process
+is AWS Glue.
+Now, AWS Glue is a fully managed ETL service
+by AWS that allows you to run Python
+or Scala code on your datasets
+to transform them to however you like.
+It allows you to create jobs
+that transforms your data and gives you
+the ability to run them on demand
+or run them on some schedule
+or even run them when another service is triggered.
+When a transformation process needs to happen
+it automatically spins up the necessary resources,
+does the transformation and outputs the data
+into your desired output target.
+It's essentially your one-stop shop
+for any ETL services.
+Now, before we can set up
+any data preparation jobs in AWS Glue
+we first need to let AWS Glue
+know what our data source actually looks like.
+Now, this data can be structures,
+semi-structured or unstructured data
+but essentially it comes from an input data source.
+What you can do is use one of the service
+built into AWS Glue to crawl your input data source.
+Now, your input data source can come
+from any of the following
+and essentially what happens is
+we set up a crawler that crawls the dataset,
+looks at the different data types
+and determines the schema or the structure
+of your dataset.
+It then creates a data catalog
+which is essentially the metadata
+or the data types and the important information
+about your dataset.
+It's essentially the structure of your dataset
+that AWS Glue can use to do data preparation jobs
+or determine important information
+about your data.
+Once a data catalog has been created
+we can then set up jobs
+and run Scala or Python code
+to transform our data.
+We can then apply our categorical encoding,
+our numeric feature engineering,
+our text feature engineering.
+We can apply feature selection
+or any other data preparation technique
+that we discussed in this chapter.
+And what's great about this Python
+and Scala code is that AWS Glue
+allows you to upload your code manually
+or it generates the code for you
+and allows you to edit it directly
+within the console.
+It gives you a great starting point
+to transform your data by creating code for you.
+Or it allows you to upload it yourself.
+We can set up these jobs to run on demand,
+to run on some schedule, or to run
+whenever another AWS service is triggered.
+So for instance, if we have some object
+that lands onto S3, we can set up a job
+that automatically runs when any new object
+is put on to a specific S3 bucket.
+Once we transform our data
+we can then output the dataset
+into an output source and use later
+for our machine learning process.
+So once the data lands here
+we're able to use it within SageMaker
+in our machine learning process.
+Now, if we take a look at what AWS Glue looks like
+within the console, it really consists
+of two major parts, a data catalog
+and the ETL section.
+Now, within the data catalog
+it consists of databases and crawlers,
+and we talked about how crawlers
+scan your input data source
+and come up with metadata information
+or infers your schema from that input data source.
+Once it crawls the data source
+it then creates tables within the database
+that helps you build out the structure
+of what your input data looks like.
+Once we have tables set up within our data catalog,
+we can then set up ETL jobs
+that run on demand or run on some schedule
+to transform our data.
+When creating a job in AWS Glue,
+we have the choice to choose the type job
+that we want to create.
+The first type of job that we'll discuss
+is a Spark job.
+Now, a Spark job is a fully managed cluster
+of Apache Spark servers
+that AWS Glue spins up in the background
+and allows us to run our transformation code on.
+Now, take note that the default type is Spark.
+If we choose the type Spark
+then we have the choice of choosing
+between Python and Scala as our ETL language.
+This will be the code choice that we use
+to transform our data.
+Once we selected ETL language
+then we select how we want the script
+to be generated.
+We have a couple of options.
+We can allow AWS Glue to generate a script for us.
+We can provide it with a script of our own.
+Or we can start a brand-new script from scratch.
+If we allow AWS Glue to generate a script for us,
+it'll look something like this.
+Now, since I chose Python as my ETL language
+it generates PySpark code.
+Now, if you're already familiar with PySpark code,
+then this is a great place to start.
+AWS Glue generates this code for us
+and we're allowed to edit it as we see fit.
+We can also choose from different transformation types
+that AWS Glue builds into the service.
+So if we select the Transform button,
+we're allowed to use any of the built-in functionality
+that AWS Glue offers within our PySpark code.
+So for example, if we wanted to include
+categorical encoding or the Cartesian product
+we could choose the appropriate
+PySpark transformation reference
+to include within our script.
+We could also choose from different output formats
+if we wanted to keep or change the output
+of our dataset.
+And just take note that when we originally
+set up our job, we chose Python,
+so it generates PySpark code for us.
+Now, if we chose Scala we could write Scala code
+to do similar transformations.
+Choosing Spark as the job type
+allows you to create PySpark or Scala code
+to run as your ETL language.
+Now, if you're more comfortable
+with using the transitional Python scripts
+and using libraries like NumPy,
+Scikit-Learn, Pandas, et cetera,
+then the job type that you can choose
+is Python shell.
+And what this allows you to do
+is create traditional Python scripts
+to run on your datasets.
+So for example, you can provide
+your own script or you can create a new script
+and edit it right in the console.
+And the built-in libraries that Python shell
+allows you to run are as follows.
+You can choose from any of these libraries
+to include to transform your data.
+So if you're more familiar with transforming your data
+using traditional Python libraries,
+then Python shell is the type of job
+that you want to create.
+Now, also note that AWS Glue allows you to create
+Zeppelin and Jupyter Notebooks
+to do transformations with.
+Now, these aren't specifically hooked into jobs
+but they allow you to do ad-hoc transformations
+and simple transformations on your datasets.
+If you're not too familiar with Jupyter Notebooks
+or Zeppelin Notebooks, then that's okay.
+Just know that we can create these
+within AWS Glue and we'll see these more in action
+during our hands-on lab.
+Essentially what they are,
+are development environments
+that allow you to run code
+within a web browser
+to analyze and prepare your data.
+Both of these tools are extremely popular
+within data science and machine learning specialists
+who use them to analyze, prepare,
+and create models for machine learning.
+And it also gives them a way
+to share their results with other people.
+So for example, I created a Jupyter notebook
+that allows me to do some data transformation.
+Now, if you create a notebook within AWS Glue,
+it's actually hosted within the SageMaker service.
+So this is a good time to talk about AWS SageMaker
+and how we can use it as a data preparation tool.
+Now, SageMaker is much more than a data preparation tool.
+Not only does it allow you to prepare your data
+but it also allows you to build, train,
+and deploy machine learning models.
+Now, we're only going to touch
+on the data preparation portion of SageMaker
+and we'll cover all the other services
+that SageMaker offers
+at a different point in the course.
+Now, as far as data preparation
+SageMaker allows you to create
+Jupyter Notebooks that are directly integrated
+within the SageMaker service.
+You can spin up Jupyter Notebook instances
+that are on a fully managed server
+all within SageMaker.
+From these notebooks you can use
+many of the Python libraries
+that are most common within data preparation
+and data analysis.
+You can also install other Python libraries
+by using package managers like conda and pip
+to install the necessary Python packages
+that you need for your project.
+So if you're trying to decide
+whether to use AWS Glue or SageMaker
+as your data preparation tool
+during your machine learning process,
+think about using AWS Glue
+for longstanding transformations
+or repetitive transformations
+that you may have to do on some schedule
+or when some action occurs.
+Think about using Jupyter Notebooks
+within SageMaker, if you want to run
+quick transformations on your data
+or run ad-hoc commands on your dataset
+right before you use them within your model.
+Most of the time AWS Glue is going to be
+your go-to service for any transformation
+or any ETL and data preparation jobs.
+The reason that I include EMR
+as a data preparation tool
+is because that the entire ETL process
+or data preparation process
+could be done within the EMR ecosystem.
+Now, EMR is a fully managed Hadoop cluster ecosystem
+that runs on multiple EC2 instances.
+And what EMR allows you to do
+is pick and choose different frameworks
+that you want to include within the cluster.
+This allows you to run distributed workloads
+over many EC2 instances if you have
+petabytes and petabytes worth of data.
+Now, most of these products are open source
+and EMR allows you to assemble
+all or some of these together
+to do different things.
+Now, in our case we could use
+several of these different tools
+to run our transformation jobs
+on a distributed system.
+So we could use tools like Apache Spark,
+Hive and Jupyter Notebooks
+to transform our data and get it ready
+for our machine learning models.
+Not only does EMR offer different frameworks
+for data preparation and ETL jobs,
+but they also offer machine learning frameworks
+where we could include
+the entire machine learning process
+right within EMR.
+Now, there is quite a bit more setup
+that you would have to do
+to set up your machine learning project on EMR
+so SageMaker is going to be our tool of choice
+when creating machine learning projects.
+EMR is great at scaling petabytes worth of data
+over a distributed system.
+So yes, we could do all of our data preparation
+directly in EMR but other services within AWS
+make the job much easier.
+So for example, let's say that we already had
+some ETL processes or some Spark jobs
+that are already running within our EMR cluster.
+What we can do is directly integrate
+the SageMaker SDK for Spark
+within our EMR cluster
+so we can run all of our SageMaker
+and Spark jobs together
+within the EMR ecosystem.
+This makes it super easy to integrate SageMaker
+and EMR together so we're able to utilize
+both services together.
+This is really great if you already have
+your Spark jobs set up in your EMR cluster.
+You can directly communicate with SageMaker from EMR.
+What we can do is easily train our models
+in our Spark clusters and after we train our models,
+we can host the models using
+Amazon SageMaker hosting services.
+So you may get questions on the exam
+that says okay well, we have some data
+that's set up in our EMR cluster,
+how do we use it within SageMaker?
+Well, we can use Apache Spark
+to integrate directly within SageMaker.
+And you also may get questions asking
+okay well, how do we perform
+the least amount of effort for ETL jobs?
+Well, using AWS Glue is going to be
+the least amount of effort
+in terms of infrastructure that you have to set up.
+Since AWS Glue is fully managed
+we don't have to spin up the infrastructure
+like we would have to do in EMR.
+Now, we could use tools like Hive and Apache Spark
+to transform our data but we would have to manage
+all of the clusters ourselves within EMR.
+So just remember that when you're going into the exam.
+So when we're creating our cluster within EMR
+we can choose the different frameworks
+that we want to include within the cluster
+and since Jupyter is built into EMR,
+we could use the notebooks to transform our data
+and use services like Hive and Apache Spark
+to run our ETL jobs.
+You can also see the supported kernels here
+that the Jupyter Notebooks offers within EMR.
+Now, the next data preparation tool
+that I want to talk about is Amazon Athena,
+and what Amazon Athena allows you to do
+is run SQL queries on your S3 data.
+Now, Athena is a serverless platform
+that's all managed by AWS
+and as long as you have your data catalog set up
+for any of your data sources,
+you can then query it with Athena.
+So think about setting up a data catalog
+for your S3 data and then using Athena
+to query that data.
+Now, once you have your data catalog set up
+within AWS Glue, you can then query it
+using Amazon Athena.
+You can write your queries here
+and then see the output results.
+You can then save that or transform it
+or do any SQL like transformations on your data
+to prepare it for your machine learning algorithms.
+And the last data preparation tool
+that I want to discuss is Data Pipeline,
+and what Data Pipeline allows you to do
+is process and move data
+between different AWS compute services.
+So think about moving data
+from DynamoDB, RDS, Redshift,
+sending it through Data Pipeline,
+doing our ETL jobs on EC2 instances or within EMR,
+and then landing the output dataset
+on one of our selected target data sources.
+Now, in most cases Data Pipeline wouldn't be used
+for an ETL job but for some reason
+if you didn't want to use Python or Scala
+but you wanted to use programming languages
+like Java or JavaScript,
+you could always load these onto EC2 instances
+and have the Data Pipeline transform your data
+or prepare your data for you.
+Now, whenever you're creating a data pipeline
+we can choose from several
+of the different built-in templates that AWS offers
+to migrate our data from one service to another.
+Now, we covered this in an earlier lecture
+but I just wanted to show you
+what it looks like in the console.
+So at this point we've covered several
+of the data preparation tools
+so now I want to answer the questions
+of which service should I use.
+Well, in most cases AWS Glue
+is going to be your go-to tool.
+You can set up Python or Scala scripts
+to transform or prepare your data
+to get it ready for your machine learning algorithms.
+And by using AWS Glue, it's all fully managed
+within AWS so it scales appropriately,
+you can transform mass amounts of data
+on demand or on some schedule
+or have a job triggered from another AWS service.
+Now, you could always use Athena
+if you knew some SQL queries
+that you could do to prepare your data.
+You could simply run the SQL queries on your S3 data
+and have the results output onto S3.
+Now, when we're talking about petabytes of data
+we might want to use services like EMR,
+or Elastic Map Reduce,
+and use tools like PySpark and Hive
+to transform petabytes of distributed data,
+and then output the results onto S3.
+And finally we could always use Data Pipeline
+if we wanted to set up EC2 instances
+to transform our data and then output it onto S3.
+If for some reason we wanted to use a language
+outside of Python or Scala
+or your traditional data transformation languages,
+we could then set up a data pipeline
+to output the data in the correct format onto S3.
+So with this, I hope you have a good understanding
+of some different tools that you can use
+during your data preparation process.
+And remember that AWS recommends
+that you use AWS Glue
+for your data preparation process
+because it is very versatile,
+it's very powerful and allows you
+to write Python or Scala scripts
+to transform your data.
+If you have any questions about this lecture,
+then please post in the course form.
+And if not, join me in the next lecture.

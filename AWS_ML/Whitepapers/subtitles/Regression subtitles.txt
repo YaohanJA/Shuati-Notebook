@@ -1,0 +1,272 @@
+Alright, alright, I know I said
+we weren't gonna use
+too much math, but sometimes it's just unavoidable
+and regression is unfortunately one of those things.
+So chances are somewhere in school
+you were introduced to the concept of linear equations.
+The idea here is if given x,
+we can figure out y based on some formula
+and vice versa if given y we could figure out what x is.
+Now, we can also plot x and y on a graph.
+And we can draw a line through those.
+By seeing the values for certain points on that line,
+we can estimate or we can predict
+what the y value or the x value is further down
+on that line based on whatever we're given
+as an input via x or y.
+Anytime I'm gonna introduce a new algorithm,
+I'm gonna give you the official description.
+This is the more scientific data science description.
+But I'm also gonna try to translate
+that into some more plain speak.
+So here down below, linear learner
+is something that can predict a number
+if you give it some numbers or whole list of numbers.
+And you can use it for either numeric predictions
+or classification problems if you're dealing
+with some sort of numeric threshold.
+And we'll see examples of this later.
+Now, it is a supervised learning algorithm.
+So that means we're gonna have to have some data
+to feed into it, such that it can figure out
+what model to build.
+And how it does that is it basically reverse engineers
+an equation based on the data that you give it.
+So therefore, what we can do is provide new x values
+for example and then we can get back the y value based
+on the equation that linear learner figured out.
+Now linear learner goes about this by trying
+to figure out how to best feed a line
+to the data that you give it for training.
+And that line is represented by an equation.
+And there's a few methods of doing this.
+But linear learner uses something
+called Stochastic gradient descent.
+And if you've ever used a topographical map to navigate,
+you kind of have done the logic,
+the Stochastic gradient descent employs.
+And I'll show you an example of this.
+Let's say for example, you are at Cady hill.
+And on this map, your mission is to get down
+an altitude as fast as possible.
+Now, if you know how to read this map,
+you'll know that the brown lines
+that are closer together indicates
+that the slope of that area of the map is more steep.
+So if my mission is to get down from this hill
+as fast as possible, I'm probably gonna take this path.
+And so that's how SGD works is it tries to figure out
+how do I get as low as possible on this map
+and the map being the error.
+Now we can also think of SGD as water flowing down
+from the mountains, let's say it rains
+in the mountains and the water flows down.
+Some of the water may get trapped in a little pool,
+but some of the water may find itself
+all the way to the ocean.
+And these two concepts have equivalents
+in Stochastic gradient descent,
+one being called local minimum,
+and one being called the global minimum,
+meaning that once the water gets to the ocean,
+that's about as far as it can flow.
+It's gotten as low as it can, it's at sea level.
+In contrast, local minimum is as low as it can flow
+in the space where it's at kind of around that area.
+But it's not the absolute lowest in error.
+In a lot of times, local minimums
+are perfectly fine for an algorithm.
+They're effective enough that that level of error is okay.
+But in some other cases,
+you really wanna find the global minimum.
+And we'll see how this happens
+and how we do this a little bit later.
+So if we go back to our regression problem,
+we know that x is a predictor of y
+that somehow x is involved in determining y
+we just don't know the formula.
+Now linear learner will go over and over different steps
+to try to figure out the minimum error,
+ideally, the global minimum.
+But sometimes it takes many iterations
+to find this global minimum
+and maybe a local minimum might be okay.
+So eventually linear learner is gonna settle
+in on some formula that it believes represents the data
+and then we'll run that model through a testing phase
+and see how well we did.
+Now we can also use linear learner
+for classification problems
+and here's an example of doing that.
+If you recall our evil versus not evil data set,
+we know that somewhere in that data,
+either the name data or the rebel slash empire data,
+that's going to be a predictor
+of whether someone is evil or not evil.
+But if you remember to use linear learner,
+we have to have numeric value.
+So we're gonna need to do some mapping.
+so we can simply do this by assigning text values,
+some number representation, doesn't really matter
+what number just so they're consistent.
+So now we can convert our data
+into something called vectors.
+Now vector is just a list of values.
+And so we're still pretty sure
+those vectors somehow relate to evil or not evil.
+Now linear learner will go through this process
+of reading the vectors reading what the answer
+is supposed to be, and try to figure out a formula
+to represent that and so what linear learner
+is gonna find out through the more or less the trial
+and error process is that the second position in our vector
+is the most accurate when it comes to predicting
+whether somebody is a zero or a one.
+Now linear learner is very flexible,
+it can be used for many different things.
+And it does have some built-in tuning
+that tries to tune hyperparameters,
+that's different than a feature you may have heard
+of called automatic model tuning.
+So keep that in mind.
+And if you're just starting out,
+you're not really sure how to approach this,
+linear learner's a pretty good first choice
+if your model involves predicting numeric values.
+So we would use linear learner in a case
+where we need to predict a quantitative value based
+on some sort of given numeric input.
+Examples of this might be based on the last five years
+of return on investment from marketing spend,
+what can we expect to be this year's ROI.
+Now we can use linear learner to do classification problems,
+so long as we structure our data in numeric format
+so that it can be read by the algorithm.
+So linear learner works pretty well
+when we have good continuous data.
+But what if we have some missing values?
+This is also called sparse data or a sparse dataset.
+We can use something called factorization machines
+to address this, so the algorithm
+here is called factorization machines.
+And the plain speak, we can use this to do a lot
+of the same things that we can do with linear learner.
+It takes in numeric values, but it's a pretty good choice
+if we happen to have holes in our data.
+And it is supervised so you know we're gonna need
+to supply it with some training data.
+Now, you might be saying this must be some magical algorithm
+to predict even when data is missing.
+Well, there are some limitations.
+Here are some things to know about factorization machines,
+first, it only considers pairwise features.
+In other words, it's only gonna analyze
+the relationship between two pairs of features at a time.
+And that could be limiting depending
+on what you're trying to do with your problem.
+Factorization machines is one of the few algorithms
+from sage maker that does not support CSP
+and we'll see later why this is.
+And it doesn't work for multi-class problems,
+it only works for either binary classification
+or regression problems, and to make up for the sparseness
+of the data, in other words, the missing features,
+it really needs a lot of data and AWS recommends
+anywhere between 10000 to 10000000 rows in the data set
+such that it has enough to try to figure out
+and work around those missing data pieces.
+And interestingly, AWS recommends CPUs
+to be used with factorization machines versus GPUs
+as that's gonna give us the most efficient experience.
+And finally, factorization machines
+just don't perform well on dense data.
+Other algorithms are way more suited
+when you have a full set of data.
+Now you can read all about how factorization machines work
+in the AWS documentation
+but I figured I'd give you an example to try to demonstrate.
+So let's consider the example
+of a movie recommendation engine.
+And in this case, we wanna provide Dante
+with a movie recommendation.
+So let's say we have four movie watchers,
+and we have four movies.
+And we want to build a model that will predict
+what movie to recommend to somebody
+who has rated other movies in the past.
+Now disclaimer here, this is not an accurate model,
+because the data is so small,
+but I've scaled it way down
+just for illustration purposes here.
+Now you can see that Bob, Jay, Veronica and Caitlin
+have rated these movies as they liked the movie
+or not like the movie, those movies being Clerks,
+Mallrats, Dogma and Clerks two
+and they're represented as a one or zero in this vector.
+Interesting to note here that nobody
+has watched all the movies.
+And this is a perfectly expected situation
+in a recommender model because we wouldn't expect
+to find somebody who's watched
+and evaluated 100% of the offerings.
+Now, let's refine our objective a bit.
+What we're really after is a movie
+that we think Dante is going to like.
+We don't really care about the movies
+that he's not going to like,
+because we'd never recommend that movie in the first place.
+So we can do some one-hot encoding here
+that will create a matrix for us to evaluate this on.
+So we've encoded the movie watchers
+and we've also encoded the movies,
+and you see if we would store this one-hot encoded data
+in CSV we're dealing with thousands of features,
+say maybe 100000, movie watchers
+and maybe 10000 possible movies,
+and the vast majority of that CSV file would be filled
+with zeros and that's just a huge waste.
+And this is why factorization machines
+don't accept CSP as data input.
+And rather, they use the record IO protobuf
+with a float 32 tensor that's way more efficient.
+So now that if we look at Dante's readings,
+this is something we might send in as a data input
+looking for the output of a recommended movie for Dante.
+So what factorization machines can do here is use our matrix
+and then we can create a difference between Dante
+and other people based on their ratings of that movie.
+And we can think of that difference
+as maybe like an error rate.
+So we start building a profile of Dante's preferences
+in movies versus other people's preferences in movies.
+And by summing that error up,
+we can start seeing patterns emerge.
+So in this case, Clerks got a net negative three,
+Mallrats got a two, Dogma got zero and Clerks two got two.
+So what we're looking for is anything positive,
+anything above zero seems like it might be something
+that Dante might like.
+And in this case because Dante has already watched
+and evaluated clerks two,
+we're gonna remove that from the potential recommendations.
+And we're gonna recommend he watch Mallrats.
+I do recommend you watch Mallrats if you have it.
+Now, this is an ultra simple example of factorization.
+But you can see how we might use something like this.
+Often times, we're dealing with millions and millions
+of data points and a very complex matrix.
+Now use case for a factorization machine algorithm
+is when you have a high dimensional sparse data set.
+What that really means is you have a lot of rows
+or a lot of data that's maybe missing features.
+Now, examples of this might be click-stream data trying
+to figure out which ads a person is gonna click based
+on what you know about them.
+Now chances are you're not gonna
+have a very complete data set at all per click-stream data.
+So that's where factorization machines come into play here.
+And as you've seen, we can also use it
+for recommendation engines.
+So what sort of movies or products
+should we recommend based on how that person
+liked other movies or products

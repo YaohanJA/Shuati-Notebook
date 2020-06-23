@@ -23,11 +23,14 @@
 
 建议：
 - 先读题，尝试在看选项前答题。
-- 找关键词（qualifier & key phrase），并根据此去掉错误选项。
-- 实在不会，先跳过。
-[exam preparation path](https://aws.amazon.com/training/learning-paths/machine-learning/exam-preparation/)
 
-  
+- 找关键词（qualifier & key phrase），并根据此去掉错误选项。
+
+- [exam preparation path](https://aws.amazon.com/training/learning-paths/machine-learning/exam-preparation/)
+
+- The AWS Certified Machine Learning - Specialty (MLS-C01) is intended for individuals who perform a Development or Data Science role. It validates a candidate's ability to design, implement, deploy, and maintain machine learning solutions for given business problems.
+
+
 # Part I: Data engineering - 20%
 ### 🦄Data Collection
 
@@ -956,23 +959,260 @@ model parameter tuning
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 # Part IV: ML implementation & operation  20%
+
+##### Online Offline Usage
+
+<img src="awsml_pic/onlineoffline.png" width="500" height="200">
+
+##### Type of deployment
+
+<img src="awsml_pic/Typeofdeployment.png" width="500" height="200">
+
+##### Rolling deployment
+
+<img src="awsml_pic/rollingdeployment.png" width="500" height="200">
+
+##### Canary deployment
+
+Deploy a new version into production so it sees a small portion of the total traffic and evaluate the performance and behaviour.
+
+<img src="awsml_pic/canarydeployment.png" width="500" height="200">
+
+##### A/B Testing
+
+deploy a new version into production and set a specific amount of inbound traffic to use that new version and then we record the follow on impacts of that new version.
+
+<img src="awsml_pic/abtesting.png" width="500" height="200">
+
+using SageMaker Hosting to channel a certain percentage of traffic to one variant, or another of our model and then we would extract the metrics there and try do decide whether variant one, or variant two was in fact doing a better job and then we can feed that information back into any sort of adjustments, or tweaks that we want to make for variant two.
+
+##### CI, CDs
+
+CI continuous Integration
+
+CD continuous delivery
+
+CD continuous deployment
+
+<img src="awsml_pic/continuousdeployment.png" width="500" height="200">
+
+
+
+<img src="awsml_pic/aiservice.png" width="450" height="200"><img src="awsml_pic/aiservice1.png" width="450" height="200">
+
+<img src="awsml_pic/aiservice2.png" width="450" height="200"><img src="awsml_pic/aiservice3.png" width="450" height="200">
+
+
+
+### Sagemaker Deployment
+
+|        | Offline                                                     | Online                                                       |
+| ------ | ----------------------------------------------------------- | ------------------------------------------------------------ |
+| Method | Sagemaker Batch Transform                                   | Sagemaker Hosting Services                                   |
+| When   | Generate predictions for a whole set of data at once        | Generate low-latency predictions                             |
+| Usage  | Asynchronous / Batch                                        | Synchronous / Real-time                                      |
+| Output |                                                             | JSON string                                                  |
+| Steps  |                                                             | Create a model<br />Create an endpoint configuration \| production variant<br />Create an endpoint |
+|        | <img src="awsml_pic/batching.png" width="350" height="250"> | <img src="awsml_pic/hosting.png" width="500" height="250">   |
+
+##### Initial weight 
+
+<img src="awsml_pic/initialweight.png" width="500" height="200">
+
+##### Inference pipeline
+
+All containers deployed to the same EC2 instance for local speed
+
+Real-time and Batch Transform
+
+##### Sagemaker Neo
+
+Compile models to optimized binary and a runtime to execute on target architecture (ARM, Intel, nVidia processors)
+
+<img src="awsml_pic/neo.png" width="500" height="200">
+
+
+
+##### Elastic Inference
+
+Speed up inference using CPU-based instances
+
+##### Automatic Scaling
+
+Dynamically add, remove instances to a production variant based on changes in a workload.
+
+Cloudwatch metric and IncovationsPerInstance.
+
+###### cooldown
+
+Scale - in, Scale - out
+
+<img src="awsml_pic/cooldown.png" width="500" height="200">
+
+
+
+##### InitialInstanceCount
+
+High availablitity with sagemaker
+
+#### ECS Deployment
+
+Elastic container service
+
+###### AWS Fargate
+
+<img src="awsml_pic/ECS.png" width="500" height="200">
+
+###### EC2
+
+<img src="awsml_pic/EC21.png" width="500" height="200">
+
+
+
+#### EMR (Spark) Deployment
+
+###### Elastic map reduce cluster
+
+<img src="awsml_pic/EMR.png" width="500" height="200">
+
+###### Existing spark pipeline, Sagemaker Spark SDK
+
+<img src="awsml_pic/spark.png" width="500" height="200">
+
+#### Local Deployment
+
+<img src="awsml_pic/locald.png" width="500" height="200">
+
+<img src="awsml_pic/locald1.png" width="500" height="200">
+
+
+
+### Security
+
+<img src="awsml_pic/security.png" width="600" height="250">
+
+- In the innermost layer, we have security groups, which are like little firewalls around our instances.
+- network access control lists, which govern which traffic we allow in and out of our subnets,
+- an internet gateway, or a NAT instance, that provides us access to the internet.
+- a VPC endpoint talking to S3.
+
+#### visibility
+
+##### Network Access Control Lists
+
+##### Security Groups
+
+##### VPC endpoints
+
+ VPC endpoint as a sort of virtual wormhole
+that allows our VPC to communicate with other AWS services,
+without having to exit to the public internet.
+
+###### Interface endpoint 
+
+An interface endpoint uses DNS redirection and trickery to route traffic to internal addresses of the AWS services, versus the public addresses.
+
+###### Gateway endpoint
+
+A gateway endpoint uses something called a prefix list, which is really just a list of IP addresses for that AWS service, and that prefix list is inserted into the route table of our VPC, and the traffic is routed via internal connection, versus through the public internet by the router.
+
+S3 Dynamo
+
+###### i.e.
+
+<img src="awsml_pic/vpcendpoint.png" width="600" height="250">
+
+we have a notebook instance that is secured by a security group, a network ACL.
+It is inside a VPC, and it is inside AWS. 
+
+However, without VPC endpoints, we would have to exit through the internet gateway to the public internet to access the SageMaker API and S3, for example, because those are public services, and they don't live in someone's VPC.
+
+<img src="awsml_pic/vpcendpoint1.png" width="600" height="250">
+
+Now instead, we can create VPC endpoints inside our VPC, which gives us a back-alley pathway to those services that uses AWS' network, and because we're not going through the public internet, it improves our security posture. Additionally, it may lower our cost, because we don't have to pay egress charges for the data that goes out to those services.
+
+
+
+###### Sagemaker subnets and security group
+
+<img src="awsml_pic/vpcendpoint2.png" width="600" height="250">
+
+when we create a model for the first time,we can tell SageMaker which subnets and security groups we wantthe SageMaker training job to use, and then SageMaker would create an elastic network interface linking the subnets to the training containers.
+
+###### Notebook Instances
+
+<img src="awsml_pic/notebookinstance.png" width="600" height="200">
+
+
+
+
+
+#### Authentication & Access Control 
+
+##### IAM (Identity and Access Management)
+
+###### Identity - based policy
+
+###### Resource - based policy
+
+<img src="awsml_pic/iam.png" width="500" height="200">
+
+#### 
+
+#### Encryption
+
+<img src="awsml_pic/encryption.png" width="500" height="200">
+
+##### Key management service
+
+s3- KMS
+
+
+
+##### Sagemaker HTTPS
+
+Even the connection between the SageMaker API in our application and the HTTPS endpoint is encrypted using TLS.
+
+When we build our hosted model, we're gonna be given an endpoint name that's just a computer-generated name, which we would plug into our SageMaker API inside our application
+
+<img src="awsml_pic/hosting.png" width="600" height="300">
+
+We can set up an API Gateway using a custom domain, with a TLS certificate provided by AWS Certificate Manager. We could then use a lambda function to pass in the requests received from the API Gateway, and we would have access to all the features of API Gateway, like client certificates, throttling, and AWS Marketplace integration for creating a SaaS business model.
+
+<img src="awsml_pic/securitysagemaker.png" width="500" height="200">
+
+
+
+#### Monitor and Evaluate 
+
+##### CloudWatch
+
+Wide variety of metrics
+
+near real-time
+
+metrics available for 15 month
+
+2 weeks limit at console
+
+###### Cloudwatch alarm
+
+<img src="awsml_pic/cloudwatch.png" width="500" height="200">
+
+##### CloudTrail
+
+Log API Access
+
+Last 90's events
+
+Can be kept indenfinitely
+
+Query with Amazon Athena
+
+
+
+
 
 
 

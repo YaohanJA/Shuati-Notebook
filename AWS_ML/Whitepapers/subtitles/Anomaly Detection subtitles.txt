@@ -1,0 +1,122 @@
+Anomaly detection.
+Well basically when we talk about anomaly detection,
+we're trying to figure out what's different,
+what is not usual.
+But before we figure out what is not usual,
+we have to first understand what is usual,
+what's the same.
+So let's do a little activity here.
+Where's Brock, find Brock in this picture.
+I'll give you five seconds.
+Okay, were you able to find Brock?
+Well lemme do something here that might help you,
+I'm gonna remove his picture,
+and then I'm gonna put his picture right back.
+Did you catch that, there's where he is, right there.
+And the reason you are able to catch that
+is visually, our eyes are set up
+to very easily recognize when something changes,
+an anomaly happens in a photograph or picture.
+And scientists use this property to find new objects,
+for example in this case, finding a new asteroid
+in the solar system.
+So obviously, computers don't have this perception ability,
+so we have to kind of synthesize that with mathematics.
+And one of the ways that we can do that
+is using an algorithm called Random Cut Forest.
+Now Random Cut Forest finds occurrences in the data
+that are significantly beyond what we might consider normal.
+Usually about three standard deviations.
+And that's useful when you're trying to analyze your data,
+because sometimes those outliers
+can mess up your training model.
+Now when we use Random Cut Forest,
+we can expect that it will give us an anomaly score
+to the data points.
+A low score would indicate that the data point
+is considered normal, while a high score
+indicates the presence of an anomaly.
+And you may say, "Well, why would I want to do this,
+"I can just graph the data and look at it,"
+you could, but the problem is,
+if you're dealing with many many millions and millions
+of points of data, graphing that alone
+would be very difficult.
+So you really need some sort of method
+or a algorithm in this case to deal with that.
+And that's how we can use Random Cut Forest
+because it scales very well
+with respect to the size of the data.
+And interestingly, it doesn't really benefit
+from GPUs, so AWS recommends
+just use normal compute instances.
+Let's take a look at an example
+of the logic behind Random Cut Forest.
+Let's say that we have a collection of data,
+and in this case we've plotted it out,
+so it's visually obvious where the outlier is.
+This is somewhat simplified, but the high level
+concept behind Random Cut Forest is,
+the algorithm's just gonna make a cut,
+it could be here, could be there,
+doesn't really matter, it's random.
+But the key here is that the outlier
+is going to tend to lie on one side of that cut,
+where the majority of the normal data, quote unquote,
+will live on the other side of that cut.
+And so the algorithm analyzes what resides
+on one side of the cut versus the other,
+and does some statistical analysis
+to try to resolve that maybe those items,
+if there's few enough of them
+on the other side of the cut,
+maybe they're just outliers.
+Now as far as use cases, we can use Random Cut Forest
+in quality control.
+For example, we could run an audio test pattern
+through a high end speaker system,
+and detect whether or not there's any
+unusual frequencies outside of the norm.
+And we can also use Random Cut Forest
+for fraud detection, we can look for unusual amounts
+or unusual times, or unusual places,
+where a transaction occurred,
+and flag that transaction for a closer look.
+Another anomaly detection algorithm that SageMaker
+provides for us is something called IP Insights.
+And the idea here is it can potentially flag
+odd online behavior that might require closer review.
+And it takes in these entity IP address pairs,
+and those entities can be a user login,
+it could be a browser ID from a cookie.
+It could be a variety of things,
+but it also is related to the IP address.
+And it uses that to build a historic baseline of patterns.
+And then when it's time for inference,
+the inference will return a score,
+with how anomalous that entity/IP combination is,
+based on whatever it determined the baseline was.
+Now it uses something called a neural network
+to learn latent vector representation
+for entities and IP addresses.
+That's just a complex way of saying, it learns patterns,
+and GPUs are recommended for training,
+in other words trying to figure out the baseline there,
+but for normal inference CPUs are good enough,
+and this is good news because you don't have to keep
+costly GPUs running just to do inference.
+Some use cases for IP Insights might be
+tiered authentication models, let's say for example
+a user tries to log into a website
+from an unusual IP address,
+that may be in a different country,
+and we might be able to use that
+to trigger an additional source of authentication
+like two-factor.
+And we can also use it for fraud detection
+or fraud prevention, if on, for example,
+a banking website, maybe we identify that the user
+is coming from an IP address
+that they don't usually come from,
+and maybe we prohibit money transfers out of the account
+if we identify that's a situation.
